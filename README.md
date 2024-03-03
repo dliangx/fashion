@@ -10,9 +10,11 @@ openfashion rust backend implement, using shuttle sass platform.
 - product_attribute
 - product_attribute_value
 - product
+- product_picture
 - product_sku
 - product_comment
-- product_collection
+- collection
+- collection_product
 
 2.order
 
