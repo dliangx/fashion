@@ -7,27 +7,12 @@ openfashion rust backend implement, using shuttle sass platform.
 1.product
 
 - product_category
-
-```sql
-create table product_category (
-    "id" int4 NOT NULL DEFAULT nextval('product_category_id_seq'::regclass),
-    "parent_id" int4 NOT NULL DEFAULT nextval('product_category_parent_id_seq'::regclass),
-    name varchar(50),
-    level char(1),
-    nav_status bool,
-    show_status bool,
-    sort inet,
-    keywords varchar(50),
-    description text(255)
-)
-```
-
 - product_attribute
 - product_attribute_value
 - product
 - product_sku
 - product_comment
-- collection
+- product_collection
 
 2.order
 
@@ -38,6 +23,9 @@ create table product_category (
 - order_return_apply
 
 3.content
+
+- content
+- content_product
 
 4.user
 
@@ -59,9 +47,5 @@ create table product_category (
 ## Software Architecture
 
 ## Rust Server Implement
-
-```js
-sdfsfd
-```
 
 ## Develop ,Build and Publish
