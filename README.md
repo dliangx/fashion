@@ -46,6 +46,10 @@ openfashion rust backend implement, using shuttle sass platform.
 - home_new_product
 - home_recommend_product
 
+using navicat premium to design database model,export file is "fashion-physic.ndm2"
+
+create table sql is in "schema.sql".
+
 ## Software Architecture
 
 ## Rust Server Implement
