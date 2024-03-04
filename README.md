@@ -11,6 +11,7 @@ openfashion rust backend implement, using shuttle sass platform.
 - product_attribute_value
 - product
 - product_picture
+- product_detail_template
 - product_sku
 - product_comment
 - collection
@@ -42,7 +43,6 @@ openfashion rust backend implement, using shuttle sass platform.
 
 5.home
 
-- home_collection
 - home_new_product
 - home_recommend_product
 
