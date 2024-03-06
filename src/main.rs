@@ -10,6 +10,9 @@ use serde::{Deserialize, Serialize};
 use shuttle_poem::ShuttlePoem;
 use shuttle_runtime::CustomError;
 use sqlx::{Executor, FromRow, PgPool};
+mod api;
+mod auth;
+
 
 #[handler]
 async fn retrieve(Path(id): Path<i32>, state: Data<&PgPool>) -> Result<Json<Todo>> {
@@ -35,6 +38,7 @@ async fn add(Json(data): Json<TodoNew>, state: Data<&PgPool>) -> Result<Json<Tod
 
 #[shuttle_runtime::main]
 async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
+
     pool.execute(include_str!("../schema.sql"))
         .await
         .map_err(CustomError::new)?;
@@ -43,7 +47,7 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
         .at("/todo", post(add))
         .at("/todo/:id", get(retrieve))
         .with(AddData::new(pool));
-
+    api::order::create_order().await;
     Ok(app.into())
 }
 
