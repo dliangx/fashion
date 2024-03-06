@@ -15,7 +15,7 @@ struct ReqBlog {
 #[derive(Debug, Serialize)]
 struct Page{
     start:i32,
-    num: i32,
+    num: Option<i32>,
     end: Option<i32>,
 }
 

@@ -48,6 +48,8 @@ CREATE TABLE "content" (
   "create_time" date,
   "sort" varchar(255),
   "status" bool,
+  "title" varchar(255),
+  "tips" varchar(255),
   PRIMARY KEY ("id")
 );
 
@@ -169,6 +171,7 @@ CREATE TABLE "product" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "product_category_id" int4,
   "name" varchar(255),
+  "brand" varchar(255),
   "product_sn" varchar(255),
   "delete_status" bool,
   "publish_status" bool,
@@ -237,7 +240,7 @@ CREATE TABLE "product_detail_template" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "type" varchar(255),
   "title" varchar(255),
-  "detail" varchar(255),
+  "detail" text,
   PRIMARY KEY ("id")
 );
 COMMENT ON COLUMN "product_detail_template"."type" IS 'html or text';
