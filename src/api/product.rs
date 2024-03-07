@@ -41,3 +41,12 @@ struct ProductDetail {
     pics: Vec<Picture>,
     details: Vec<Detail>,
 }
+
+struct Collection {
+    id: i32,
+    name: String,
+    pic: String,
+    sort: i32,
+    products: Vec<ProductInfo>,
+}
+
