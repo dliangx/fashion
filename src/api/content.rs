@@ -1,6 +1,6 @@
 use sqlx::PgPool;
 use poem::web::Json;
-use serde::{Serialize, Deserialize};
+use serde::Serialize;
 use sqlx;
 
 #[derive(Debug, sqlx::FromRow)]

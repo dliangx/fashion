@@ -1,25 +1,19 @@
+
+use sqlx::PgPool;
 use poem::web::Json;
 
+use super::product::ProductInfo;
+
 struct UserId {
-    pub id: Option<i32>,
+    pub id: i32,
+    pub name: Option<String>
 }
 
-pub fn home_new() -> Json<serde_json::Value> {
-    Json(serde_json::json! ({
-        "product_name": "name", 
-        "product_id":1,
-        "pic":"",
-        "category":"",
-        "price":0.00,
-    }))
+
+pub fn home_new(pool: PgPool) -> Json<Vec<ProductInfo>> {
+    
 }
 
-pub fn home_recommend(req: Json<UserId>) -> Json<serde_json::Value> {
-    Json(serde_json::json! ({
-        "product_name": "name", 
-        "product_id":1,
-        "pic":"",
-        "category":"",
-        "price":0.00,
-    }))
+pub fn home_recommend(req: Json<UserId>) ->  Json<Vec<ProductInfo>> {
+
 }
