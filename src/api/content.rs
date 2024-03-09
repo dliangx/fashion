@@ -20,22 +20,19 @@ struct Page{
     end: Option<i32>,
 }
 
-pub fn list_blog() -> Json<serde_json::Value> {
+pub async fn list_blog(pool: PgPool) -> Json<Vec<Blog>> {
 
-    Json(serde_json::json! ({
-        "id": 0,
-        "title": "",
-        "tips": "String",
-        "airtcle": "String",
-        "time": 19870909
-    }))
+    let rows = sqlx::query_as::<_,Blog>("select id,title,tips,airtcle,time from content ")
+                                                    .fetch_all(&pool).await;
+    
+    Json(rows.unwrap())
 }
 
 
-pub async fn blog_detail(pool: PgPool,blog_id:i32) -> Json<Vec<Blog>> {
+pub async fn blog_detail(pool: PgPool,blog_id:i32) -> Json<Blog> {
     let rows = sqlx::query_as::<_,Blog>("select id,title,tips,airtcle,time from content where id=?")
                                                     .bind(blog_id)
-                                                    .fetch_all(&pool).await;
+                                                    .fetch_one(&pool).await;
     
     Json(rows.unwrap())
    
