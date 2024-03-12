@@ -11,4 +11,4 @@ shuttle-poem = "0.36.0"
 shuttle-runtime = "0.36.0"
 shuttle-shared-db = { version = "0.36.0", features = ["postgres"] }
 sqlx = { version = "0.7.1", features = ["runtime-tokio-native-tls", "postgres"] }
-tokio = "1.26.0"
+tokio = { version = "1.26.0", features = ["rt", "macros"]}

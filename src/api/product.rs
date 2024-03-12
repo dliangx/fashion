@@ -50,3 +50,22 @@ struct Collection {
     products: Vec<ProductInfo>,
 }
 
+pub fn get_collections(){
+
+}
+
+pub fn get_categorys(){
+
+}
+
+pub fn get_product_by_category(){
+
+}
+
+pub fn get_product_detail(){
+
+}
+
+pub fn search_product(){
+    
+}

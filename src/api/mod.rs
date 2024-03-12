@@ -33,3 +33,7 @@ impl <T: Serialize> ApiResult<T>{
 pub fn search(){
 
 }
+
+pub fn get_propular_search(){
+    
+}

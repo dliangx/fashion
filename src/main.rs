@@ -47,7 +47,6 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
         .at("/todo", post(add))
         .at("/todo/:id", get(retrieve))
         .with(AddData::new(pool));
-    api::order::create_order().await;
     Ok(app.into())
 }
 
