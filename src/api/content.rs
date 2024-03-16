@@ -4,7 +4,7 @@ use serde::Serialize;
 use sqlx;
 
 #[derive(Debug, sqlx::FromRow)]
-struct Blog {
+pub struct Blog {
     id: i32,
     title: String,
     tips: String,

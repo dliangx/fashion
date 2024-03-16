@@ -39,9 +39,9 @@ async fn add(Json(data): Json<TodoNew>, state: Data<&PgPool>) -> Result<Json<Tod
 #[shuttle_runtime::main]
 async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
 
-    pool.execute(include_str!("../schema.sql"))
-        .await
-        .map_err(CustomError::new)?;
+    // pool.execute(include_str!("../schema.sql"))
+    //     .await
+    //     .map_err(CustomError::new)?;
 
     let app = Route::new()
         .at("/todo", post(add))
