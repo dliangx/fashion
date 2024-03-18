@@ -17,7 +17,9 @@ pub struct Blog {
 #[handler]
 pub async fn list_blog(page:Json<Page> ,state:Data<&PgPool>) -> Result<Json<Vec<Blog>>> {
 
-    let rows = sqlx::query_as::<_,Blog>("select id,title,tips,airtcle,time from content ")
+    let rows = sqlx::query_as::<_,Blog>("select id,title,tips,airtcle,time from content LIMIT ? OFFSET ?")
+                                                    .bind(page.num)
+                                                    .bind(page.start)
                                                     .fetch_all(state.0)
                                                     .await
                                                     .map_err(BadRequest)?;
