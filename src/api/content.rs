@@ -1,6 +1,6 @@
 use serde::Serialize;
 use sqlx::PgPool;
-use poem::{handler, web::{Data, Json, Path}};
+use poem::{error::BadRequest, handler, web::{Data, Json, Path},Result};
 use sqlx;
 
 use super::Page;
@@ -15,21 +15,25 @@ pub struct Blog {
 }
 
 #[handler]
-pub async fn list_blog(page:Json<Page> ,state:Data<&PgPool>) -> Json<Vec<Blog>> {
+pub async fn list_blog(page:Json<Page> ,state:Data<&PgPool>) -> Result<Json<Vec<Blog>>> {
 
     let rows = sqlx::query_as::<_,Blog>("select id,title,tips,airtcle,time from content ")
-                                                    .fetch_all(state.0).await;
+                                                    .fetch_all(state.0)
+                                                    .await
+                                                    .map_err(BadRequest)?;
     
-    Json(rows.unwrap())
+    Ok(Json(rows))
 }
 
 #[handler]
-pub async fn blog_detail(Path(id): Path<i32>,state: Data<&PgPool>) -> Json<Blog> {
+pub async fn blog_detail(Path(id): Path<i32>,state: Data<&PgPool>) -> Result<Json<Blog>> {
     let rows = sqlx::query_as::<_,Blog>("select id,title,tips,airtcle,time from content where id=?")
                                                     .bind(id)
-                                                    .fetch_one(state.0).await;
+                                                    .fetch_one(state.0)
+                                                    .await
+                                                    .map_err(BadRequest)?;
     
-    Json(rows.unwrap())
+    Ok(Json(rows))
    
 }
 
