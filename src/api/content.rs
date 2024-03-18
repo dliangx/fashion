@@ -1,9 +1,11 @@
-use sqlx::PgPool;
-use poem::web::Json;
 use serde::Serialize;
+use sqlx::PgPool;
+use poem::{handler, web::{Data, Json, Path}};
 use sqlx;
 
-#[derive(Debug, sqlx::FromRow)]
+use super::Page;
+
+#[derive(Debug,Serialize,sqlx::FromRow)]
 pub struct Blog {
     id: i32,
     title: String,
@@ -12,27 +14,20 @@ pub struct Blog {
     time: String
 }
 
-
-#[derive(Debug, Serialize)]
-struct Page{
-    start:i32,
-    num: Option<i32>,
-    end: Option<i32>,
-}
-
-pub async fn list_blog(pool: PgPool) -> Json<Vec<Blog>> {
+#[handler]
+pub async fn list_blog(page:Json<Page> ,state:Data<&PgPool>) -> Json<Vec<Blog>> {
 
     let rows = sqlx::query_as::<_,Blog>("select id,title,tips,airtcle,time from content ")
-                                                    .fetch_all(&pool).await;
+                                                    .fetch_all(state.0).await;
     
     Json(rows.unwrap())
 }
 
-
-pub async fn blog_detail(pool: PgPool,blog_id:i32) -> Json<Blog> {
+#[handler]
+pub async fn blog_detail(Path(id): Path<i32>,state: Data<&PgPool>) -> Json<Blog> {
     let rows = sqlx::query_as::<_,Blog>("select id,title,tips,airtcle,time from content where id=?")
-                                                    .bind(blog_id)
-                                                    .fetch_one(&pool).await;
+                                                    .bind(id)
+                                                    .fetch_one(state.0).await;
     
     Json(rows.unwrap())
    

@@ -20,6 +20,7 @@ async fn retrieve(Path(id): Path<i32>, state: Data<&PgPool>) -> Result<Json<Todo
         .bind(id)
         .fetch_one(state.0)
         .await
+        
         .map_err(BadRequest)?;
 
     Ok(Json(todo))
