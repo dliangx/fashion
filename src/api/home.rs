@@ -5,9 +5,7 @@ use poem::{
     Result,
 };
 use serde::Deserialize;
-use sqlx;
-use sqlx::PgPool;
-use sqlx::Row;
+use sqlx::{self, PgPool, Row};
 
 use super::product::{Collection, ProductInfo};
 

@@ -53,22 +53,6 @@ CREATE TABLE "content" (
   PRIMARY KEY ("id")
 );
 
-CREATE TABLE "content_product" (
-  "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
-  "content_id" int4 NOT NULL,
-  "product_id" int4,
-  PRIMARY KEY ("id")
-);
-
-CREATE TABLE "home_new_product" (
-  "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
-  "product_id" int4,
-  "product_name" varchar(255),
-  "sort" int2,
-  "status" bool,
-  PRIMARY KEY ("id")
-);
-
 CREATE TABLE "home_recommend_product" (
   "id" int4 GENERATED ALWAYS AS IDENTITY,
   "product_id" int4,
@@ -176,7 +160,6 @@ CREATE TABLE "product" (
   "delete_status" bool,
   "publish_status" bool,
   "new_status" bool,
-  "recommend_status" bool,
   "sort" int4,
   "sale" int4,
   "price" decimal(10,2),
@@ -309,6 +292,17 @@ CREATE TABLE "user" (
   PRIMARY KEY ("id")
 );
 
+CREATE TABLE "user_favourite" (
+  "id" int4 NOT NULL,
+  "user_id" int4 NOT NULL,
+  "collection_id" int4,
+  "product_id" int4,
+  "category_id" int4,
+  "create_time" date,
+  "delete_flag" bool,
+  PRIMARY KEY ("id")
+);
+
 CREATE TABLE "user_login_history" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "user_id" int4,
@@ -354,12 +348,10 @@ CREATE TABLE "user_role" (
   PRIMARY KEY ("id")
 );
 
-ALTER TABLE "cart_item" ADD CONSTRAINT "fk_cart_item_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
+ALTER TABLE "cart_item" ADD CONSTRAINT "fk_cart_item_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+ALTER TABLE "cart_item" ADD CONSTRAINT "fk_cart_item_product_sku_1" FOREIGN KEY ("product_sku_id") REFERENCES "product_sku" ("id");
 ALTER TABLE "collection_product" ADD CONSTRAINT "fk_collection_product_collection_1" FOREIGN KEY ("collection_id") REFERENCES "collection" ("id");
 ALTER TABLE "collection_product" ADD CONSTRAINT "fk_collection_product_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-ALTER TABLE "content_product" ADD CONSTRAINT "fk_content_product_content_1" FOREIGN KEY ("content_id") REFERENCES "content" ("id");
-ALTER TABLE "content_product" ADD CONSTRAINT "fk_content_product_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-ALTER TABLE "home_new_product" ADD CONSTRAINT "fk_home_new_product_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 ALTER TABLE "home_recommend_product" ADD CONSTRAINT "fk_home_recommend_product_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 ALTER TABLE "order" ADD CONSTRAINT "fk_order_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 ALTER TABLE "order_item" ADD CONSTRAINT "fk_order_item_order_1" FOREIGN KEY ("order_id") REFERENCES "order" ("id");
@@ -368,7 +360,6 @@ ALTER TABLE "order_operate_history" ADD CONSTRAINT "fk_order_operate_history_ord
 ALTER TABLE "order_return_apply" ADD CONSTRAINT "fk_order_return_apply_order_1" FOREIGN KEY ("order_id") REFERENCES "order" ("id");
 ALTER TABLE "product" ADD CONSTRAINT "fk_product_product_category_1" FOREIGN KEY ("product_category_id") REFERENCES "product_category" ("id");
 ALTER TABLE "product_attribute" ADD CONSTRAINT "fk_product_attribute_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-ALTER TABLE "product_attribute_value" ADD CONSTRAINT "fk_product_attribute_value_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 ALTER TABLE "product_attribute_value" ADD CONSTRAINT "fk_product_attribute_value_product_attribute_1" FOREIGN KEY ("product_attribute_id") REFERENCES "product_attribute" ("id");
 ALTER TABLE "product_comment" ADD CONSTRAINT "fk_product_comment_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 ALTER TABLE "product_detail_template_relation" ADD CONSTRAINT "fk_product_detail_template_relation_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
@@ -377,6 +368,8 @@ ALTER TABLE "product_picture" ADD CONSTRAINT "fk_product_picture_product_1" FORE
 ALTER TABLE "product_sku" ADD CONSTRAINT "fk_product_sku_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 ALTER TABLE "role_permission_relation" ADD CONSTRAINT "fk_role_permission_relation_permission_1" FOREIGN KEY ("permission_id") REFERENCES "permission" ("id");
 ALTER TABLE "role_permission_relation" ADD CONSTRAINT "fk_role_permission_relation_role_1" FOREIGN KEY ("role_id") REFERENCES "role" ("id");
+ALTER TABLE "user_favourite" ADD CONSTRAINT "fk_user_favourite_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+ALTER TABLE "user_favourite" ADD CONSTRAINT "fk_user_favourite_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 ALTER TABLE "user_login_history" ADD CONSTRAINT "fk_user_login_history_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 ALTER TABLE "user_payment_type" ADD CONSTRAINT "fk_user_payment_type_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 ALTER TABLE "user_recevie_address" ADD CONSTRAINT "fk_user_recevie_address_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
