@@ -4,12 +4,15 @@ use poem::{
     web::{Data, Json},
     Result,
 };
+use serde::Deserialize;
 use sqlx;
 use sqlx::PgPool;
+use sqlx::Row;
 
 use super::product::{Collection, ProductInfo};
 
-struct UserId {
+#[derive(Debug,Deserialize)]
+struct User {
     pub id: i32,
     pub name: String,
 }
@@ -29,18 +32,36 @@ pub async fn home_new_product(state: Data<&PgPool>) -> Result<Json<Vec<ProductIn
             .map_err(BadRequest)?
             .iter()
             .map(|row| ProductInfo{ 
-                product_name: todo!(), 
-                product_id: todo!(), 
-                pic: todo!(), 
-                category: todo!(), 
-                rating: todo!(), 
-                attr: todo!(), 
-                price: todo!() }
-            )
+                product_name: row.get("product_name"), 
+                product_id: row.get("product_id"), 
+                pic: row.get("pic"), 
+                category: row.get("category"), 
+                rating: row.get("rating"), 
+                attr: Vec::new(), 
+                price: row.get("price") 
+            })
             .collect();
     Ok(Json(rows)) 
 }
 
-// pub fn home_recommend(req: Json<UserId>) ->  Json<Vec<ProductInfo>> {
-
-// }
+#[handler]
+pub async fn home_recommend(req: Json<User>,state: Data<&PgPool>) -> Result<Json<Vec<ProductInfo>> >{
+    let rows = sqlx::query("")
+    .bind(req.id)
+    .bind(req.name.clone())
+    .fetch_all(state.0)
+    .await
+    .map_err(BadRequest)?
+    .iter()
+    .map(|row| ProductInfo{ 
+        product_name: row.get("product_name"), 
+        product_id: row.get("product_id"), 
+        pic: row.get("pic"), 
+        category: row.get("category"), 
+        rating: row.get("rating"), 
+        attr: Vec::new(), 
+        price: row.get("price") 
+    })
+    .collect();
+Ok(Json(rows)) 
+}
