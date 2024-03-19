@@ -18,22 +18,6 @@ struct Payment {
     cvv: String,
 }
 
-pub fn login(){
-
-}
-
-pub fn logout(){
-
-}
-
-pub fn sign_in(){
-
-}
-
-pub fn sign_up(){
-
-}
-
 pub fn submit(){
     
 }
