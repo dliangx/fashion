@@ -1,3 +1,8 @@
+struct LoginInfo{
+    name: String,
+    password: String,
+}
+
 fn login(){
 
 }

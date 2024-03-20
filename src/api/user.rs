@@ -1,3 +1,5 @@
+use poem::web::headers::Date;
+
 struct Address{
     userid: i32,
     first_name: String,
@@ -17,6 +19,19 @@ struct Payment {
     exp_date: String,
     cvv: String,
 }
+
+struct User {
+    id: i32,
+    username: String,
+    nickname: Option<String>,
+    phone: Option<String>,
+    email: Option<String>,
+    gender: Option<String>,
+    job: Option<String>,
+    create_time: Option<Date>
+}
+
+
 
 pub fn submit(){
     
