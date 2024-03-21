@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use sqlx;
 
 #[derive(Debug,Serialize, Deserialize,sqlx::FromRow)]
 pub struct ProductAttr{
@@ -18,6 +17,7 @@ pub struct ProductInfo {
     pub price: f32,
 }
 
+#[derive(Debug,Serialize)]
 struct ProductCategory {
     id: i32,
     name: String,
@@ -26,17 +26,20 @@ struct ProductCategory {
     children: Vec<ProductCategory>,
 }
 
+#[derive(Debug,Serialize)]
 struct Detail {
     t: String,
     title: String,
     detail: String,
 }
 
+#[derive(Debug,Serialize)]
 struct Picture {
     t: i32,
     sort: i32,
     url: String,
 }
+#[derive(Debug,Serialize)]
 struct ProductDetail {
     info: ProductInfo,
     pics: Vec<Picture>,
@@ -52,12 +55,24 @@ pub struct Collection {
     // products: Vec<ProductInfo>,
 }
 
-pub fn get_collections(){
-
+#[derive(Debug,Serialize, sqlx::FromRow)]
+pub struct Collections {
+    id: i32,
+    name: String,
+    pic: String,
 }
+
 
 pub fn get_categorys(){
 
+}
+
+pub fn get_collections_by_id(){
+
+}
+
+pub fn get_collcetion_by_id(){
+    
 }
 
 pub fn get_product_by_category(){

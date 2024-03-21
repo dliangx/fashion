@@ -29,7 +29,12 @@ CREATE TABLE "collection" (
   "sort" int2,
   "status" bool,
   "recommend_status" bool,
+  "collections_id" int4,
   CONSTRAINT "_copy_2" PRIMARY KEY ("id")
+);
+
+CREATE TABLE "collection_group" (
+
 );
 
 CREATE TABLE "collection_product" (
@@ -39,6 +44,15 @@ CREATE TABLE "collection_product" (
   "sort" int2,
   "status" bool,
   CONSTRAINT "_copy_1" PRIMARY KEY ("id")
+);
+
+CREATE TABLE "collections" (
+  "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
+  "name" varchar(20),
+  "pic" varchar(50),
+  "recommend_status" bool,
+  "sort" int2,
+  "status" int2
 );
 
 CREATE TABLE "content" (
@@ -352,6 +366,7 @@ CREATE TABLE "user_role" (
 
 ALTER TABLE "cart_item" ADD CONSTRAINT "fk_cart_item_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 ALTER TABLE "cart_item" ADD CONSTRAINT "fk_cart_item_product_sku_1" FOREIGN KEY ("product_sku_id") REFERENCES "product_sku" ("id");
+ALTER TABLE "collection" ADD CONSTRAINT "fk_collection_collections_1" FOREIGN KEY ("collections_id") REFERENCES "collections" ("id");
 ALTER TABLE "collection_product" ADD CONSTRAINT "fk_collection_product_collection_1" FOREIGN KEY ("collection_id") REFERENCES "collection" ("id");
 ALTER TABLE "collection_product" ADD CONSTRAINT "fk_collection_product_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 ALTER TABLE "home_recommend_product" ADD CONSTRAINT "fk_home_recommend_product_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
