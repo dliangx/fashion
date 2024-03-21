@@ -1,4 +1,6 @@
+use poem::{error::BadRequest, handler, web::{Data, Json, Path},Result};
 use serde::{Deserialize, Serialize};
+use sqlx::PgPool;
 
 #[derive(Debug,Serialize, Deserialize,sqlx::FromRow)]
 pub struct ProductAttr{
@@ -17,13 +19,13 @@ pub struct ProductInfo {
     pub price: f32,
 }
 
-#[derive(Debug,Serialize)]
-struct ProductCategory {
+
+#[derive(Debug,Serialize,sqlx::FromRow)]
+struct Category {
     id: i32,
     name: String,
     level: i32,
-    sort: i32,
-    children: Vec<ProductCategory>,
+    parent_id: i32,
 }
 
 #[derive(Debug,Serialize)]
@@ -62,9 +64,13 @@ pub struct Collections {
     pic: String,
 }
 
-
-pub fn get_categorys(){
-
+#[handler]
+pub async fn get_categorys(state:Data<&PgPool>) -> Result<Json<Vec<Category>>>{
+    let rows = sqlx::query_as::<_,Category>("select id,parent_id,name,level,nav_status from product_category where status = true")
+                                                .fetch_all(state.0)
+                                                .await.map_err(BadRequest)?;
+ 
+    Ok(Json(rows))
 }
 
 pub fn get_collections_by_id(){
