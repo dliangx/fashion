@@ -153,6 +153,7 @@ CREATE TABLE "permission" (
 CREATE TABLE "product" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "product_category_id" int4,
+  "product_category_name" varchar(20),
   "name" varchar(30),
   "brand" varchar(20),
   "product_sn" varchar(50),

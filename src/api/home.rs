@@ -24,7 +24,7 @@ pub async fn home_new_collections(state: Data<&PgPool>) -> Result<Json<Vec<Colle
 
 #[handler]
 pub async fn home_new_product(state: Data<&PgPool>) -> Result<Json<Vec<ProductInfo>>> {
-    let rows = sqlx::query("select  a.id,a.name,preview_pic,b.name,rating as product_category_name,price from product a LEFT JOIN product_category b on a.product_category_id = b.id where new_status= true order by a.sort limit 4")
+    let rows = sqlx::query("SELECT ID,NAME,preview_pic,product_category_name,price,rating FROM product WHERE new_status=TRUE ORDER BY sort LIMIT 4")
             .fetch_all(state.0)
             .await
             .map_err(BadRequest)?
@@ -44,7 +44,7 @@ pub async fn home_new_product(state: Data<&PgPool>) -> Result<Json<Vec<ProductIn
 
 #[handler]
 pub async fn home_recommend(req: Json<User>,state: Data<&PgPool>) -> Result<Json<Vec<ProductInfo>> >{
-    let rows = sqlx::query("")
+    let rows = sqlx::query("SELECT A.product_name AS NAME,A.product_id AS ID,b.preview_pic AS pic,b.product_category_name AS category,b.rating,b.price FROM home_recommend_product A INNER JOIN product b ON A.product_id=b.ID ORDER BY A.sort DESC limit 3;")
     .bind(req.id)
     .bind(req.name.clone())
     .fetch_all(state.0)
@@ -52,8 +52,8 @@ pub async fn home_recommend(req: Json<User>,state: Data<&PgPool>) -> Result<Json
     .map_err(BadRequest)?
     .iter()
     .map(|row| ProductInfo{ 
-        product_name: row.get("product_name"), 
-        product_id: row.get("product_id"), 
+        product_name: row.get("name"), 
+        product_id: row.get("id"), 
         pic: row.get("pic"), 
         category: row.get("category"), 
         rating: row.get("rating"), 
