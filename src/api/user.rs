@@ -1,38 +1,30 @@
-use poem::web::headers::Date;
+use poem::handler;
+use poem::web::Json;
+use poem::web:: Data;
+use poem::Result;
+use serde::Deserialize;
+use sqlx::PgPool;
 
-struct Address{
-    userid: i32,
-    first_name: String,
-    second_name: String,
-    address: String,
-    city: String,
-    status: String,
-    zip: String,
-    phone: String
-}
-
-struct Payment {
-    userid: i32,
-    card_name: String,
-    card_num: String,
-    exp_mon: String,
-    exp_date: String,
-    cvv: String,
-}
-
-struct User {
-    id: i32,
-    username: String,
-    nickname: Option<String>,
-    phone: Option<String>,
-    email: Option<String>,
-    gender: Option<String>,
-    job: Option<String>,
-    create_time: Option<Date>
+#[derive(Deserialize)]
+struct SubmitInfo {
+    name: String,
+    email: String,
 }
 
 
-
-pub fn submit(){
+#[handler]
+pub async fn submit(state:Data<&PgPool>,user:Json<SubmitInfo>) -> Result<String>{
+    let res = sqlx::query("update User set email=? where name=?")
+                                                .bind(&user.email)
+                                                .bind(&user.name)
+                                                .fetch_one(state.0)
+                                                .await;
+    match res {
+        Ok(_) => Ok(String::from("success")),
+        Err(err) => {
+            println!("err message: {:?}",err);
+            Ok(String::from("fail"))
+        } 
+    }
     
 }

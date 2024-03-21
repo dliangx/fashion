@@ -278,7 +278,7 @@ CREATE TABLE "role_permission_relation" (
 
 CREATE TABLE "user" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
-  "username" varchar(30),
+  "username" varchar(30) NOT NULL,
   "password" varchar(30),
   "nickname" varchar(50),
   "phone" varchar(20),
@@ -289,7 +289,7 @@ CREATE TABLE "user" (
   "email" varchar(50),
   "create_time" date,
   "status" bool,
-  PRIMARY KEY ("id")
+  PRIMARY KEY ("id", "username")
 );
 
 CREATE TABLE "user_favourite" (
