@@ -24,16 +24,16 @@ pub async fn home_new_collections(state: Data<&PgPool>) -> Result<Json<Vec<Colle
 
 #[handler]
 pub async fn home_new_product(state: Data<&PgPool>) -> Result<Json<Vec<ProductInfo>>> {
-    let rows = sqlx::query("")
+    let rows = sqlx::query("select  a.id,a.name,preview_pic,b.name,rating as product_category_name,price from product a LEFT JOIN product_category b on a.product_category_id = b.id where new_status= true order by a.sort limit 4")
             .fetch_all(state.0)
             .await
             .map_err(BadRequest)?
             .iter()
             .map(|row| ProductInfo{ 
-                product_name: row.get("product_name"), 
-                product_id: row.get("product_id"), 
-                pic: row.get("pic"), 
-                category: row.get("category"), 
+                product_name: row.get("name"), 
+                product_id: row.get("id"), 
+                pic: row.get("preview_pic"), 
+                category: row.get("product_category_name"), 
                 rating: row.get("rating"), 
                 attr: Vec::new(), 
                 price: row.get("price") 

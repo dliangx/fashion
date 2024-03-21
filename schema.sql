@@ -162,6 +162,7 @@ CREATE TABLE "product" (
   "sort" int4,
   "sale" int4,
   "price" decimal(10,2),
+  "rating" float4,
   "preview_pic" varchar(50),
   "description" varchar(255),
   "stock" int4,
