@@ -11,11 +11,3 @@ struct Page{
     start:i32,
     num: i32,
 }
-
-pub fn search(){
-
-}
-
-pub fn get_propular_search(){
-    
-}
