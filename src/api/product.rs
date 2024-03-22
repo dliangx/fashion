@@ -20,7 +20,7 @@ pub struct ProductInfo {
 }
 
 
-#[derive(Debug,Serialize,sqlx::FromRow)]
+#[derive(Debug,Serialize,Deserialize,sqlx::FromRow)]
 struct Category {
     id: i32,
     name: String,
@@ -73,21 +73,26 @@ pub async fn get_categorys(state:Data<&PgPool>) -> Result<Json<Vec<Category>>>{
     Ok(Json(rows))
 }
 
-pub fn get_collections_by_id(){
-
+#[handler]
+pub fn get_collections(state:Data<&PgPool>,req:Json<i32>) -> Result<Json<Collections>>{
+    unimplemented!();
 }
 
-pub fn get_collcetion_by_id(){
-    
+#[handler]
+pub fn get_collcetion(state:Data<&PgPool>,req:Json<i32>) -> Result<Json<Collection>>{
+    unimplemented!();
 }
 
-pub fn get_product_by_category(){
-
+#[handler]
+pub fn get_product_by_category(state:Data<&PgPool>,req:Json<Category>) -> Result<Json<ProductInfo>>{
+    unimplemented!();
 }
 
-pub fn get_product_detail(){
-
+#[handler]
+pub fn get_product_detail(state:Data<&PgPool>,req:Json<i32>) -> Result<Json<ProductDetail>>{
+    unimplemented!()
 }
+
 
 pub fn search_product(){
     
