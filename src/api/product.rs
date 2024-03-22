@@ -74,26 +74,26 @@ pub async fn get_categorys(state:Data<&PgPool>) -> Result<Json<Vec<Category>>>{
 }
 
 #[handler]
-pub fn get_collections(state:Data<&PgPool>,req:Json<i32>) -> Result<Json<Collections>>{
+pub async fn get_collections(state:Data<&PgPool>,Path(id):Path<i32>) -> Result<Json<Collections>>{
     unimplemented!();
 }
 
 #[handler]
-pub fn get_collcetion(state:Data<&PgPool>,req:Json<i32>) -> Result<Json<Collection>>{
+pub async fn get_collcetion(state:Data<&PgPool>,Path(id):Path<i32>) -> Result<Json<Collection>>{
     unimplemented!();
 }
 
 #[handler]
-pub fn get_product_by_category(state:Data<&PgPool>,req:Json<Category>) -> Result<Json<ProductInfo>>{
+pub async fn get_product_by_category(state:Data<&PgPool>,req:Json<Category>) -> Result<Json<ProductInfo>>{
     unimplemented!();
 }
 
 #[handler]
-pub fn get_product_detail(state:Data<&PgPool>,req:Json<i32>) -> Result<Json<ProductDetail>>{
+pub async fn get_product_detail(state:Data<&PgPool>,Path(id):Path<i32>) -> Result<Json<ProductDetail>>{
     unimplemented!()
 }
 
 
-pub fn search_product(){
+pub async fn search_product(){
     
 }
