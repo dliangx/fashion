@@ -1,7 +1,10 @@
-use poem::web::Json;
+use poem::{error::BadRequest, handler, web::{Data, Json, Path},Result};
+use serde::{Deserialize, Serialize};
+use sqlx::PgPool;
 
 
-struct Order{
+#[derive(Serialize,Deserialize)]
+pub struct Order{
     user_id: i32,
     order_sn: String,
     user_name: String,
@@ -20,7 +23,8 @@ struct Order{
     items: Vec<OrderItem>
 }
 
-struct OrderItem{
+#[derive(Serialize,Deserialize)]
+pub struct OrderItem{
     order_id: i32,
     order_sn: String,
     product_id: i32,
@@ -37,12 +41,14 @@ struct OrderItem{
     sp3: String,
 }
 
-struct PayMent{
+#[derive(Serialize,Deserialize)]
+pub struct PayMent{
     order_id: i32,
     order_sn: String,
     amount: f32,
 }
 
+#[derive(Serialize,Deserialize)]
 struct Address{
     userid: i32,
     first_name: String,
@@ -54,6 +60,7 @@ struct Address{
     phone: String
 }
 
+#[derive(Serialize,Deserialize)]
 struct Payment {
     userid: i32,
     card_name: String,
@@ -63,21 +70,24 @@ struct Payment {
     cvv: String,
 }
 
-
-pub async fn create_order(items: Json<Vec<OrderItem>>) {
-
-
-}
-
-pub fn checkout(order: Order)->i32{
-    return 0;
-}
-
-pub fn add_shipping_address(){
+#[handler]
+pub async fn create_order(items: Json<OrderItem>,state:Data<&PgPool>) -> Result<Json<Order>>{
+    unimplemented!()
 
 }
 
-pub fn add_payment_method(){
+#[handler]
+pub fn checkout(order: Json<Order>,state:Data<&PgPool>)->Result<Json<PayMent>>{
+    unimplemented!()
+}
 
+#[handler]
+pub fn add_shipping_address(address: Json<Address>,state:Data<&PgPool>) -> Result<Json<String>>{
+    unimplemented!()
+}
+
+#[handler]
+pub fn add_payment_method(payment: Json<Payment>,state:Data<&PgPool>) -> Result<Json<String>>{
+    unimplemented!()
 }
 
