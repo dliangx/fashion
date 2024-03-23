@@ -5231,29 +5231,7 @@
                   "isDeferred": false,
                   "oldName": ""
                 },
-                "foreignKeys": [
-                  {
-                    "objectType": "ForeignKey_PGSQL",
-                    "name": "fk_order_user_1",
-                    "fields": [
-                      "user_id"
-                    ],
-                    "referenceSchema": "default",
-                    "referenceTable": "user",
-                    "referenceFields": [
-                      "id"
-                    ],
-                    "onDelete": "",
-                    "onUpdate": "",
-                    "comment": "",
-                    "isMatchFull": false,
-                    "isDeferrable": false,
-                    "isDeferred": false,
-                    "sourceCardinality": "NoneRelationship",
-                    "targetCardinality": "NoneRelationship",
-                    "oldName": ""
-                  }
-                ],
+                "foreignKeys": [],
                 "uniques": [],
                 "checks": [],
                 "excludes": [],
@@ -7720,359 +7698,6 @@
                     "oldName": ""
                   }
                 ],
-                "uniques": [],
-                "checks": [],
-                "excludes": [],
-                "triggers": [],
-                "partitionKeys": [],
-                "partitions": [],
-                "distributedSlices": []
-              },
-              {
-                "objectType": "TableNormal_PGSQL",
-                "name": "content",
-                "comment": "",
-                "tablespace": "",
-                "isUnlogged": false,
-                "owner": "",
-                "inheritFromTables": [],
-                "hasOIDs": false,
-                "fillFactor": -1,
-                "oldName": "",
-                "oid": 0,
-                "rows": 0,
-                "isInheritTables": true,
-                "cluster": "",
-                "orientation": "",
-                "storageType": "",
-                "ACL": "",
-                "isPartition": false,
-                "partitioningStrategy": "None",
-                "partitionOfSchema": "",
-                "partitionOfTable": "",
-                "partitionListValues": [],
-                "partitionRangeFromValues": [],
-                "partitionRangeToValues": [],
-                "partitionHashModulusValue": -1,
-                "partitionHashRemainderValue": -1,
-                "foreignServer": "",
-                "foreignOptionDisplay": "",
-                "distributedType": "None",
-                "distributedKeys": [],
-                "fields": [
-                  {
-                    "objectType": "TableField_PGSQL",
-                    "name": "id",
-                    "type": "int4",
-                    "length": -2147483648,
-                    "decimals": -2147483648,
-                    "dimensions": 0,
-                    "collation": "",
-                    "isNullable": false,
-                    "defaultType": "None",
-                    "defaultValue": "",
-                    "comment": "",
-                    "oldName": "id",
-                    "typeOID": 1,
-                    "fieldObjectType": "",
-                    "objectTypeSchema": "",
-                    "isDomainType": false,
-                    "collationSchema": "",
-                    "ordinalPosition": -1,
-                    "foreignOptions": [],
-                    "isIdentity": true,
-                    "identityGeneration": "Always",
-                    "oldIdentityGeneration": "Always",
-                    "identityStart": 0,
-                    "identityIncrement": 0,
-                    "identityMinimum": 0,
-                    "hasNoIdentityMinValue": false,
-                    "identityMaximum": 0,
-                    "hasNoIdentityMaxValue": false,
-                    "identityCache_inServer": 0,
-                    "isIdentityCycle": false,
-                    "generationExpression": "",
-                    "geographyType": "",
-                    "geographySRID": -1,
-                    "geometryType": "",
-                    "geometrySRID": -1
-                  },
-                  {
-                    "objectType": "TableField_PGSQL",
-                    "name": "type",
-                    "type": "varchar",
-                    "length": 10,
-                    "decimals": -2147483648,
-                    "dimensions": 0,
-                    "collation": "",
-                    "isNullable": true,
-                    "defaultType": "None",
-                    "defaultValue": "",
-                    "comment": "",
-                    "oldName": "type",
-                    "typeOID": 1,
-                    "fieldObjectType": "",
-                    "objectTypeSchema": "",
-                    "isDomainType": false,
-                    "collationSchema": "",
-                    "ordinalPosition": -1,
-                    "foreignOptions": [],
-                    "isIdentity": false,
-                    "identityGeneration": "None",
-                    "oldIdentityGeneration": "None",
-                    "identityStart": 0,
-                    "identityIncrement": 0,
-                    "identityMinimum": 0,
-                    "hasNoIdentityMinValue": false,
-                    "identityMaximum": 0,
-                    "hasNoIdentityMaxValue": false,
-                    "identityCache_inServer": 0,
-                    "isIdentityCycle": false,
-                    "generationExpression": "",
-                    "geographyType": "",
-                    "geographySRID": -1,
-                    "geometryType": "",
-                    "geometrySRID": -1
-                  },
-                  {
-                    "objectType": "TableField_PGSQL",
-                    "name": "article",
-                    "type": "text",
-                    "length": -2147483648,
-                    "decimals": -2147483648,
-                    "dimensions": 0,
-                    "collation": "",
-                    "isNullable": true,
-                    "defaultType": "None",
-                    "defaultValue": "",
-                    "comment": "",
-                    "oldName": "article",
-                    "typeOID": 1,
-                    "fieldObjectType": "",
-                    "objectTypeSchema": "",
-                    "isDomainType": false,
-                    "collationSchema": "",
-                    "ordinalPosition": -1,
-                    "foreignOptions": [],
-                    "isIdentity": false,
-                    "identityGeneration": "None",
-                    "oldIdentityGeneration": "None",
-                    "identityStart": 0,
-                    "identityIncrement": 0,
-                    "identityMinimum": 0,
-                    "hasNoIdentityMinValue": false,
-                    "identityMaximum": 0,
-                    "hasNoIdentityMaxValue": false,
-                    "identityCache_inServer": 0,
-                    "isIdentityCycle": false,
-                    "generationExpression": "",
-                    "geographyType": "",
-                    "geographySRID": -1,
-                    "geometryType": "",
-                    "geometrySRID": -1
-                  },
-                  {
-                    "objectType": "TableField_PGSQL",
-                    "name": "create_time",
-                    "type": "date",
-                    "length": -2147483648,
-                    "decimals": -2147483648,
-                    "dimensions": 0,
-                    "collation": "",
-                    "isNullable": true,
-                    "defaultType": "None",
-                    "defaultValue": "",
-                    "comment": "",
-                    "oldName": "create_time",
-                    "typeOID": 1,
-                    "fieldObjectType": "",
-                    "objectTypeSchema": "",
-                    "isDomainType": false,
-                    "collationSchema": "",
-                    "ordinalPosition": -1,
-                    "foreignOptions": [],
-                    "isIdentity": false,
-                    "identityGeneration": "None",
-                    "oldIdentityGeneration": "None",
-                    "identityStart": 0,
-                    "identityIncrement": 0,
-                    "identityMinimum": 0,
-                    "hasNoIdentityMinValue": false,
-                    "identityMaximum": 0,
-                    "hasNoIdentityMaxValue": false,
-                    "identityCache_inServer": 0,
-                    "isIdentityCycle": false,
-                    "generationExpression": "",
-                    "geographyType": "",
-                    "geographySRID": -1,
-                    "geometryType": "",
-                    "geometrySRID": -1
-                  },
-                  {
-                    "objectType": "TableField_PGSQL",
-                    "name": "sort",
-                    "type": "varchar",
-                    "length": 10,
-                    "decimals": -2147483648,
-                    "dimensions": 0,
-                    "collation": "",
-                    "isNullable": true,
-                    "defaultType": "None",
-                    "defaultValue": "",
-                    "comment": "",
-                    "oldName": "sort",
-                    "typeOID": 1,
-                    "fieldObjectType": "",
-                    "objectTypeSchema": "",
-                    "isDomainType": false,
-                    "collationSchema": "",
-                    "ordinalPosition": -1,
-                    "foreignOptions": [],
-                    "isIdentity": false,
-                    "identityGeneration": "None",
-                    "oldIdentityGeneration": "None",
-                    "identityStart": 0,
-                    "identityIncrement": 0,
-                    "identityMinimum": 0,
-                    "hasNoIdentityMinValue": false,
-                    "identityMaximum": 0,
-                    "hasNoIdentityMaxValue": false,
-                    "identityCache_inServer": 0,
-                    "isIdentityCycle": false,
-                    "generationExpression": "",
-                    "geographyType": "",
-                    "geographySRID": -1,
-                    "geometryType": "",
-                    "geometrySRID": -1
-                  },
-                  {
-                    "objectType": "TableField_PGSQL",
-                    "name": "status",
-                    "type": "bool",
-                    "length": -2147483648,
-                    "decimals": -2147483648,
-                    "dimensions": 0,
-                    "collation": "",
-                    "isNullable": true,
-                    "defaultType": "None",
-                    "defaultValue": "",
-                    "comment": "",
-                    "oldName": "status",
-                    "typeOID": 1,
-                    "fieldObjectType": "",
-                    "objectTypeSchema": "",
-                    "isDomainType": false,
-                    "collationSchema": "",
-                    "ordinalPosition": -1,
-                    "foreignOptions": [],
-                    "isIdentity": false,
-                    "identityGeneration": "None",
-                    "oldIdentityGeneration": "None",
-                    "identityStart": 0,
-                    "identityIncrement": 0,
-                    "identityMinimum": 0,
-                    "hasNoIdentityMinValue": false,
-                    "identityMaximum": 0,
-                    "hasNoIdentityMaxValue": false,
-                    "identityCache_inServer": 0,
-                    "isIdentityCycle": false,
-                    "generationExpression": "",
-                    "geographyType": "",
-                    "geographySRID": -1,
-                    "geometryType": "",
-                    "geometrySRID": -1
-                  },
-                  {
-                    "objectType": "TableField_PGSQL",
-                    "name": "title",
-                    "type": "varchar",
-                    "length": 30,
-                    "decimals": -2147483648,
-                    "dimensions": 0,
-                    "collation": "",
-                    "isNullable": true,
-                    "defaultType": "None",
-                    "defaultValue": "",
-                    "comment": "",
-                    "oldName": "title",
-                    "typeOID": 1,
-                    "fieldObjectType": "",
-                    "objectTypeSchema": "",
-                    "isDomainType": false,
-                    "collationSchema": "",
-                    "ordinalPosition": -1,
-                    "foreignOptions": [],
-                    "isIdentity": false,
-                    "identityGeneration": "None",
-                    "oldIdentityGeneration": "None",
-                    "identityStart": 0,
-                    "identityIncrement": 0,
-                    "identityMinimum": 0,
-                    "hasNoIdentityMinValue": false,
-                    "identityMaximum": 0,
-                    "hasNoIdentityMaxValue": false,
-                    "identityCache_inServer": 0,
-                    "isIdentityCycle": false,
-                    "generationExpression": "",
-                    "geographyType": "",
-                    "geographySRID": -1,
-                    "geometryType": "",
-                    "geometrySRID": -1
-                  },
-                  {
-                    "objectType": "TableField_PGSQL",
-                    "name": "tips",
-                    "type": "varchar",
-                    "length": 255,
-                    "decimals": -2147483648,
-                    "dimensions": 0,
-                    "collation": "",
-                    "isNullable": true,
-                    "defaultType": "None",
-                    "defaultValue": "",
-                    "comment": "",
-                    "oldName": "tips",
-                    "typeOID": 1,
-                    "fieldObjectType": "",
-                    "objectTypeSchema": "",
-                    "isDomainType": false,
-                    "collationSchema": "",
-                    "ordinalPosition": -1,
-                    "foreignOptions": [],
-                    "isIdentity": false,
-                    "identityGeneration": "None",
-                    "oldIdentityGeneration": "None",
-                    "identityStart": 0,
-                    "identityIncrement": 0,
-                    "identityMinimum": 0,
-                    "hasNoIdentityMinValue": false,
-                    "identityMaximum": 0,
-                    "hasNoIdentityMaxValue": false,
-                    "identityCache_inServer": 0,
-                    "isIdentityCycle": false,
-                    "generationExpression": "",
-                    "geographyType": "",
-                    "geographySRID": -1,
-                    "geometryType": "",
-                    "geometrySRID": -1
-                  }
-                ],
-                "indexes": [],
-                "rules": [],
-                "primaryKey": {
-                  "objectType": "PrimaryKey_PGSQL",
-                  "name": "",
-                  "fields": [
-                    "id"
-                  ],
-                  "fillFactor": -1,
-                  "indexTablespace": "",
-                  "comment": "",
-                  "isDeferrable": false,
-                  "isDeferred": false,
-                  "oldName": ""
-                },
-                "foreignKeys": [],
                 "uniques": [],
                 "checks": [],
                 "excludes": [],
@@ -10734,6 +10359,681 @@
                 "partitionKeys": [],
                 "partitions": [],
                 "distributedSlices": []
+              },
+              {
+                "objectType": "TableNormal_PGSQL",
+                "name": "content",
+                "comment": "",
+                "tablespace": "",
+                "isUnlogged": false,
+                "owner": "",
+                "inheritFromTables": [],
+                "hasOIDs": false,
+                "fillFactor": -1,
+                "oldName": "",
+                "oid": 0,
+                "rows": 0,
+                "isInheritTables": true,
+                "cluster": "",
+                "orientation": "",
+                "storageType": "",
+                "ACL": "",
+                "isPartition": false,
+                "partitioningStrategy": "None",
+                "partitionOfSchema": "",
+                "partitionOfTable": "",
+                "partitionListValues": [],
+                "partitionRangeFromValues": [],
+                "partitionRangeToValues": [],
+                "partitionHashModulusValue": -1,
+                "partitionHashRemainderValue": -1,
+                "foreignServer": "",
+                "foreignOptionDisplay": "",
+                "distributedType": "None",
+                "distributedKeys": [],
+                "fields": [
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "id",
+                    "type": "int4",
+                    "length": -2147483648,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": false,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "id",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": true,
+                    "identityGeneration": "Always",
+                    "oldIdentityGeneration": "Always",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "type",
+                    "type": "varchar",
+                    "length": 10,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "type",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "article",
+                    "type": "text",
+                    "length": -2147483648,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "article",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "create_time",
+                    "type": "date",
+                    "length": -2147483648,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "create_time",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "sort",
+                    "type": "varchar",
+                    "length": 10,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "sort",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "status",
+                    "type": "bool",
+                    "length": -2147483648,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "status",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "title",
+                    "type": "varchar",
+                    "length": 30,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "title",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "tips",
+                    "type": "varchar",
+                    "length": 255,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "tips",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "pic",
+                    "type": "varchar",
+                    "length": 50,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "pic",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  }
+                ],
+                "indexes": [],
+                "rules": [],
+                "primaryKey": {
+                  "objectType": "PrimaryKey_PGSQL",
+                  "name": "",
+                  "fields": [
+                    "id"
+                  ],
+                  "fillFactor": -1,
+                  "indexTablespace": "",
+                  "comment": "",
+                  "isDeferrable": false,
+                  "isDeferred": false,
+                  "oldName": ""
+                },
+                "foreignKeys": [],
+                "uniques": [],
+                "checks": [],
+                "excludes": [],
+                "triggers": [],
+                "partitionKeys": [],
+                "partitions": [],
+                "distributedSlices": []
+              },
+              {
+                "objectType": "TableNormal_PGSQL",
+                "name": "content_category_relation",
+                "comment": "",
+                "tablespace": "",
+                "isUnlogged": false,
+                "owner": "",
+                "inheritFromTables": [],
+                "hasOIDs": false,
+                "fillFactor": -1,
+                "oldName": "",
+                "oid": 0,
+                "rows": 0,
+                "isInheritTables": true,
+                "cluster": "",
+                "orientation": "",
+                "storageType": "",
+                "ACL": "",
+                "isPartition": false,
+                "partitioningStrategy": "None",
+                "partitionOfSchema": "",
+                "partitionOfTable": "",
+                "partitionListValues": [],
+                "partitionRangeFromValues": [],
+                "partitionRangeToValues": [],
+                "partitionHashModulusValue": -1,
+                "partitionHashRemainderValue": -1,
+                "foreignServer": "",
+                "foreignOptionDisplay": "",
+                "distributedType": "None",
+                "distributedKeys": [],
+                "fields": [
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "id",
+                    "type": "int4",
+                    "length": -2147483648,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": false,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "id",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": true,
+                    "identityGeneration": "Always",
+                    "oldIdentityGeneration": "Always",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "content_id",
+                    "type": "int4",
+                    "length": -2147483648,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "content_id",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "category_id",
+                    "type": "int4",
+                    "length": -2147483648,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "category_id",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "category_name",
+                    "type": "varchar",
+                    "length": 30,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "category_name",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  },
+                  {
+                    "objectType": "TableField_PGSQL",
+                    "name": "status",
+                    "type": "bool",
+                    "length": -2147483648,
+                    "decimals": -2147483648,
+                    "dimensions": 0,
+                    "collation": "",
+                    "isNullable": true,
+                    "defaultType": "None",
+                    "defaultValue": "",
+                    "comment": "",
+                    "oldName": "status",
+                    "typeOID": 1,
+                    "fieldObjectType": "",
+                    "objectTypeSchema": "",
+                    "isDomainType": false,
+                    "collationSchema": "",
+                    "ordinalPosition": -1,
+                    "foreignOptions": [],
+                    "isIdentity": false,
+                    "identityGeneration": "None",
+                    "oldIdentityGeneration": "None",
+                    "identityStart": 0,
+                    "identityIncrement": 0,
+                    "identityMinimum": 0,
+                    "hasNoIdentityMinValue": false,
+                    "identityMaximum": 0,
+                    "hasNoIdentityMaxValue": false,
+                    "identityCache_inServer": 0,
+                    "isIdentityCycle": false,
+                    "generationExpression": "",
+                    "geographyType": "",
+                    "geographySRID": -1,
+                    "geometryType": "",
+                    "geometrySRID": -1
+                  }
+                ],
+                "indexes": [],
+                "rules": [],
+                "primaryKey": {
+                  "objectType": "PrimaryKey_PGSQL",
+                  "name": "",
+                  "fields": [
+                    "id"
+                  ],
+                  "fillFactor": -1,
+                  "indexTablespace": "",
+                  "comment": "",
+                  "isDeferrable": false,
+                  "isDeferred": false,
+                  "oldName": ""
+                },
+                "foreignKeys": [
+                  {
+                    "objectType": "ForeignKey_PGSQL",
+                    "name": "fk_content_category_relation_content_1",
+                    "fields": [
+                      "content_id"
+                    ],
+                    "referenceSchema": "default",
+                    "referenceTable": "content",
+                    "referenceFields": [
+                      "id"
+                    ],
+                    "onDelete": "",
+                    "onUpdate": "",
+                    "comment": "",
+                    "isMatchFull": false,
+                    "isDeferrable": false,
+                    "isDeferred": false,
+                    "sourceCardinality": "NoneRelationship",
+                    "targetCardinality": "NoneRelationship",
+                    "oldName": ""
+                  },
+                  {
+                    "objectType": "ForeignKey_PGSQL",
+                    "name": "fk_content_category_relation_product_category_1",
+                    "fields": [
+                      "category_id"
+                    ],
+                    "referenceSchema": "default",
+                    "referenceTable": "product_category",
+                    "referenceFields": [
+                      "id"
+                    ],
+                    "onDelete": "",
+                    "onUpdate": "",
+                    "comment": "",
+                    "isMatchFull": false,
+                    "isDeferrable": false,
+                    "isDeferred": false,
+                    "sourceCardinality": "NoneRelationship",
+                    "targetCardinality": "NoneRelationship",
+                    "oldName": ""
+                  }
+                ],
+                "uniques": [],
+                "checks": [],
+                "excludes": [],
+                "triggers": [],
+                "partitionKeys": [],
+                "partitions": [],
+                "distributedSlices": []
               }
             ],
             "views": []
@@ -10746,7 +11046,7 @@
     {
       "name": "Diagram 1",
       "paperWidth": 2,
-      "paperHeight": 3,
+      "paperHeight": 2,
       "tableFont": "Arial Unicode MS",
       "tableFontSize": 14,
       "isBalckWhite": false,
@@ -10760,8 +11060,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product_category",
-          "x": 1160,
-          "y": 2050,
+          "x": 400,
+          "y": 1450,
           "width": 180,
           "height": 240,
           "isBold": false,
@@ -10776,8 +11076,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product_attribute",
-          "x": 1050,
-          "y": 2940,
+          "x": 250,
+          "y": 2310,
           "width": 150,
           "height": 198,
           "isBold": false,
@@ -10792,8 +11092,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product_attribute_value",
-          "x": 810,
-          "y": 2980,
+          "x": 30,
+          "y": 2340,
           "width": 177,
           "height": 135,
           "isBold": false,
@@ -10808,8 +11108,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product",
-          "x": 1260,
-          "y": 2760,
+          "x": 450,
+          "y": 2120,
           "width": 244,
           "height": 576,
           "isBold": false,
@@ -10824,8 +11124,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product_sku",
-          "x": 1830,
-          "y": 1130,
+          "x": 1140,
+          "y": 560,
           "width": 172,
           "height": 303,
           "isBold": false,
@@ -10840,8 +11140,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "order",
-          "x": 1300,
-          "y": 1000,
+          "x": 630,
+          "y": 420,
           "width": 214,
           "height": 555,
           "isBold": false,
@@ -10856,8 +11156,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "order_item",
-          "x": 1570,
-          "y": 1100,
+          "x": 890,
+          "y": 520,
           "width": 202,
           "height": 366,
           "isBold": false,
@@ -10872,8 +11172,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "order_operate_history",
-          "x": 1070,
-          "y": 1190,
+          "x": 400,
+          "y": 610,
           "width": 180,
           "height": 177,
           "isBold": false,
@@ -10888,8 +11188,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "cart_item",
-          "x": 1830,
-          "y": 630,
+          "x": 1110,
+          "y": 30,
           "width": 212,
           "height": 450,
           "isBold": false,
@@ -10904,8 +11204,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "order_return_apply",
-          "x": 1400,
-          "y": 1610,
+          "x": 630,
+          "y": 1020,
           "width": 207,
           "height": 450,
           "isBold": false,
@@ -10920,8 +11220,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "collection",
-          "x": 1770,
-          "y": 2920,
+          "x": 1360,
+          "y": 2156,
           "width": 177,
           "height": 240,
           "isBold": false,
@@ -10936,8 +11236,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "user",
-          "x": 930,
-          "y": 370,
+          "x": 1630,
+          "y": 380,
           "width": 168,
           "height": 177,
           "isBold": false,
@@ -10952,8 +11252,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "user_recevie_address",
-          "x": 910,
-          "y": 30,
+          "x": 1400,
+          "y": 330,
           "width": 190,
           "height": 282,
           "isBold": false,
@@ -10968,8 +11268,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "user_payment_type",
-          "x": 1160,
-          "y": 340,
+          "x": 1850,
+          "y": 350,
           "width": 185,
           "height": 240,
           "isBold": false,
@@ -10984,8 +11284,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "user_role",
-          "x": 480,
-          "y": 380,
+          "x": 1630,
+          "y": 760,
           "width": 180,
           "height": 156,
           "isBold": false,
@@ -11000,8 +11300,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "user_permission",
-          "x": 30,
-          "y": 380,
+          "x": 1640,
+          "y": 1110,
           "width": 150,
           "height": 156,
           "isBold": false,
@@ -11016,8 +11316,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "role_permission_relation",
-          "x": 240,
-          "y": 410,
+          "x": 1630,
+          "y": 960,
           "width": 180,
           "height": 114,
           "isBold": false,
@@ -11032,8 +11332,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "user_role_relation",
-          "x": 720,
-          "y": 410,
+          "x": 1640,
+          "y": 600,
           "width": 150,
           "height": 114,
           "isBold": false,
@@ -11048,8 +11348,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "user_login_history",
-          "x": 1070,
-          "y": 700,
+          "x": 1790,
+          "y": 70,
           "width": 150,
           "height": 177,
           "isBold": false,
@@ -11064,10 +11364,10 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "content",
-          "x": 2110,
-          "y": 30,
+          "x": 410,
+          "y": 950,
           "width": 150,
-          "height": 219,
+          "height": 240,
           "isBold": false,
           "titleColor": {
             "r": 55,
@@ -11080,8 +11380,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "collection_product",
-          "x": 1560,
-          "y": 2970,
+          "x": 960,
+          "y": 2344,
           "width": 150,
           "height": 156,
           "isBold": false,
@@ -11096,8 +11396,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product_detail_template",
-          "x": 1280,
-          "y": 3560,
+          "x": 480,
+          "y": 2910,
           "width": 177,
           "height": 135,
           "isBold": false,
@@ -11112,8 +11412,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product_picture",
-          "x": 1400,
-          "y": 2110,
+          "x": 630,
+          "y": 1520,
           "width": 150,
           "height": 177,
           "isBold": false,
@@ -11128,8 +11428,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product_detail_template_relation",
-          "x": 1260,
-          "y": 3390,
+          "x": 460,
+          "y": 2750,
           "width": 231,
           "height": 114,
           "isBold": false,
@@ -11144,8 +11444,8 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "user_favourite",
-          "x": 860,
-          "y": 1000,
+          "x": 1590,
+          "y": 30,
           "width": 150,
           "height": 198,
           "isBold": false,
@@ -11160,9 +11460,25 @@
           "type": "table",
           "schemaName": "default",
           "tableName": "product_recommend",
-          "x": 1470,
-          "y": 2480,
+          "x": 660,
+          "y": 1860,
           "width": 191,
+          "height": 156,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "content_category_relation",
+          "x": 390,
+          "y": 1240,
+          "width": 197,
           "height": 156,
           "isBold": false,
           "titleColor": {
@@ -11183,25 +11499,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1460,
-              "y": 2302
+              "x": 710,
+              "y": 1712
             },
             {
-              "x": 1460,
-              "y": 2350
+              "x": 710,
+              "y": 1750
             },
             {
-              "x": 1340,
-              "y": 2350
+              "x": 550,
+              "y": 1750
             },
             {
-              "x": 1340,
-              "y": 2745
+              "x": 550,
+              "y": 2105
             }
           ],
           "label": {
-            "x": 1268,
-            "y": 2251,
+            "x": 518,
+            "y": 1661,
             "width": 194,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11225,25 +11541,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1890,
-              "y": 1448
+              "x": 1220,
+              "y": 878
             },
             {
-              "x": 1890,
-              "y": 2420
+              "x": 1220,
+              "y": 1800
             },
             {
-              "x": 1400,
-              "y": 2420
+              "x": 610,
+              "y": 1800
             },
             {
-              "x": 1400,
-              "y": 2745
+              "x": 610,
+              "y": 2105
             }
           ],
           "label": {
-            "x": 1898,
-            "y": 1407,
+            "x": 1228,
+            "y": 837,
             "width": 173,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11267,17 +11583,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1215,
-              "y": 3040
+              "x": 415,
+              "y": 2400
             },
             {
-              "x": 1245,
-              "y": 3040
+              "x": 435,
+              "y": 2400
             }
           ],
           "label": {
-            "x": 1205,
-            "y": 3001,
+            "x": 405,
+            "y": 2361,
             "width": 203,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11301,17 +11617,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1290,
-              "y": 2745
+              "x": 490,
+              "y": 2105
             },
             {
-              "x": 1290,
-              "y": 2305
+              "x": 490,
+              "y": 1705
             }
           ],
           "label": {
-            "x": 1086,
-            "y": 2714,
+            "x": 286,
+            "y": 2074,
             "width": 206,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11335,17 +11651,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1380,
-              "y": 3375
+              "x": 580,
+              "y": 2735
             },
             {
-              "x": 1380,
-              "y": 3351
+              "x": 580,
+              "y": 2711
             }
           ],
           "label": {
-            "x": 1081,
-            "y": 3344,
+            "x": 281,
+            "y": 2704,
             "width": 301,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11369,17 +11685,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1380,
-              "y": 3519
+              "x": 580,
+              "y": 2879
             },
             {
-              "x": 1380,
-              "y": 3545
+              "x": 580,
+              "y": 2895
             }
           ],
           "label": {
-            "x": 1370,
-            "y": 3468,
+            "x": 570,
+            "y": 2828,
             "width": 404,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11403,17 +11719,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 225,
-              "y": 470
+              "x": 1720,
+              "y": 1089
             },
             {
-              "x": 195,
-              "y": 470
+              "x": 1720,
+              "y": 1095
             }
           ],
           "label": {
-            "x": 20,
-            "y": 431,
+            "x": 1507,
+            "y": 1038,
             "width": 271,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11437,17 +11753,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 705,
-              "y": 470
+              "x": 1720,
+              "y": 729
             },
             {
-              "x": 675,
-              "y": 470
+              "x": 1720,
+              "y": 745
             }
           ],
           "label": {
-            "x": 715,
-            "y": 431,
+            "x": 1722,
+            "y": 678,
             "width": 131,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11471,17 +11787,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 435,
-              "y": 470
+              "x": 1720,
+              "y": 945
             },
             {
-              "x": 465,
-              "y": 470
+              "x": 1720,
+              "y": 931
             }
           ],
           "label": {
-            "x": 425,
-            "y": 431,
+            "x": 1722,
+            "y": 914,
             "width": 226,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11505,25 +11821,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1130,
-              "y": 685
+              "x": 1860,
+              "y": 262
             },
             {
-              "x": 1130,
-              "y": 640
+              "x": 1860,
+              "y": 290
             },
             {
-              "x": 1060,
-              "y": 640
+              "x": 1760,
+              "y": 290
             },
             {
-              "x": 1060,
-              "y": 562
+              "x": 1760,
+              "y": 365
             }
           ],
           "label": {
-            "x": 947,
-            "y": 654,
+            "x": 1677,
+            "y": 211,
             "width": 190,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11547,16 +11863,16 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1145,
+              "x": 1835,
               "y": 470
             },
             {
-              "x": 1113,
+              "x": 1813,
               "y": 470
             }
           ],
           "label": {
-            "x": 955,
+            "x": 1645,
             "y": 431,
             "width": 200,
             "height": 31,
@@ -11581,17 +11897,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1010,
-              "y": 327
+              "x": 1605,
+              "y": 470
             },
             {
-              "x": 1010,
-              "y": 355
+              "x": 1615,
+              "y": 470
             }
           ],
           "label": {
-            "x": 1018,
-            "y": 286,
+            "x": 1601,
+            "y": 441,
             "width": 215,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11615,60 +11931,18 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1555,
-              "y": 1290
+              "x": 875,
+              "y": 710
             },
             {
-              "x": 1529,
-              "y": 1290
+              "x": 859,
+              "y": 710
             }
           ],
           "label": {
-            "x": 1415,
-            "y": 1251,
+            "x": 735,
+            "y": 671,
             "width": 150,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 204,
-              "g": 204,
-              "b": 204,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "fk_order_user_1",
-          "sourceTableName": "order",
-          "sourceSchemaName": "default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 1360,
-              "y": 985
-            },
-            {
-              "x": 1360,
-              "y": 940
-            },
-            {
-              "x": 1010,
-              "y": 940
-            },
-            {
-              "x": 1010,
-              "y": 562
-            }
-          ],
-          "label": {
-            "x": 1368,
-            "y": 964,
-            "width": 110,
             "height": 31,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
@@ -11691,17 +11965,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1265,
-              "y": 1290
+              "x": 595,
+              "y": 710
             },
             {
-              "x": 1285,
-              "y": 1290
+              "x": 615,
+              "y": 710
             }
           ],
           "label": {
-            "x": 1034,
-            "y": 1251,
+            "x": 364,
+            "y": 671,
             "width": 221,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11725,17 +11999,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1460,
-              "y": 1595
+              "x": 740,
+              "y": 1005
             },
             {
-              "x": 1460,
-              "y": 1570
+              "x": 740,
+              "y": 990
             }
           ],
           "label": {
-            "x": 1260,
-            "y": 1564,
+            "x": 540,
+            "y": 974,
             "width": 202,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11759,17 +12033,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1002,
-              "y": 3040
+              "x": 222,
+              "y": 2400
             },
             {
-              "x": 1035,
-              "y": 3040
+              "x": 235,
+              "y": 2400
             }
           ],
           "label": {
-            "x": 870,
-            "y": 3001,
+            "x": 90,
+            "y": 2361,
             "width": 303,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11793,17 +12067,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 885,
-              "y": 470
+              "x": 1720,
+              "y": 585
             },
             {
-              "x": 915,
-              "y": 470
+              "x": 1720,
+              "y": 572
             }
           ],
           "label": {
-            "x": 875,
-            "y": 431,
+            "x": 1722,
+            "y": 554,
             "width": 135,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11827,17 +12101,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 960,
-              "y": 985
+              "x": 1680,
+              "y": 243
             },
             {
-              "x": 960,
-              "y": 562
+              "x": 1680,
+              "y": 365
             }
           ],
           "label": {
-            "x": 962,
-            "y": 954,
+            "x": 1682,
+            "y": 192,
             "width": 166,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11861,17 +12135,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1920,
-              "y": 1095
+              "x": 1220,
+              "y": 495
             },
             {
-              "x": 1920,
-              "y": 1115
+              "x": 1220,
+              "y": 545
             }
           ],
           "label": {
-            "x": 1739,
-            "y": 1044,
+            "x": 1039,
+            "y": 444,
             "width": 183,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11895,17 +12169,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1787,
-              "y": 1290
+              "x": 1107,
+              "y": 710
             },
             {
-              "x": 1815,
-              "y": 1290
+              "x": 1125,
+              "y": 710
             }
           ],
           "label": {
-            "x": 1584,
-            "y": 1251,
+            "x": 904,
+            "y": 671,
             "width": 193,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -11929,52 +12203,18 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1545,
-              "y": 3040
+              "x": 945,
+              "y": 2414
             },
             {
-              "x": 1519,
-              "y": 3040
+              "x": 709,
+              "y": 2400
             }
           ],
           "label": {
-            "x": 1555,
-            "y": 3001,
+            "x": 955,
+            "y": 2375,
             "width": 210,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 204,
-              "g": 204,
-              "b": 204,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "fk_collection_product_collection_1",
-          "sourceTableName": "collection_product",
-          "sourceSchemaName": "default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 1725,
-              "y": 3040
-            },
-            {
-              "x": 1755,
-              "y": 3040
-            }
-          ],
-          "label": {
-            "x": 1721,
-            "y": 3011,
-            "width": 221,
             "height": 31,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
@@ -11997,26 +12237,128 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1520,
-              "y": 2651
+              "x": 750,
+              "y": 2031
             },
             {
-              "x": 1520,
-              "y": 2690
+              "x": 750,
+              "y": 2070
             },
             {
-              "x": 1470,
-              "y": 2690
+              "x": 660,
+              "y": 2070
             },
             {
-              "x": 1470,
-              "y": 2745
+              "x": 660,
+              "y": 2105
             }
           ],
           "label": {
-            "x": 1295,
-            "y": 2600,
+            "x": 525,
+            "y": 1980,
             "width": 227,
+            "height": 31,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 204,
+              "g": 204,
+              "b": 204,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_content_category_relation_content_1",
+          "sourceTableName": "content_category_relation",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 490,
+              "y": 1225
+            },
+            {
+              "x": 490,
+              "y": 1205
+            }
+          ],
+          "label": {
+            "x": 270,
+            "y": 1194,
+            "width": 258,
+            "height": 31,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 204,
+              "g": 204,
+              "b": 204,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_content_category_relation_product_category_1",
+          "sourceTableName": "content_category_relation",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 490,
+              "y": 1411
+            },
+            {
+              "x": 490,
+              "y": 1435
+            }
+          ],
+          "label": {
+            "x": 171,
+            "y": 1360,
+            "width": 321,
+            "height": 31,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 204,
+              "g": 204,
+              "b": 204,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_collection_product_collection_1",
+          "sourceTableName": "collection_product",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1125,
+              "y": 2414
+            },
+            {
+              "x": 1345,
+              "y": 2276
+            }
+          ],
+          "label": {
+            "x": 1115,
+            "y": 2375,
+            "width": 221,
             "height": 31,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
