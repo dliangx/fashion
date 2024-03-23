@@ -1,6 +1,6 @@
 ALTER TABLE "cart_item" DROP CONSTRAINT "fk_cart_item_product_sku_1";
-ALTER TABLE "collection_product" DROP CONSTRAINT "fk_collection_product_product_1";
 ALTER TABLE "collection_product" DROP CONSTRAINT "fk_collection_product_collection_1";
+ALTER TABLE "collection_product" DROP CONSTRAINT "fk_collection_product_product_1";
 ALTER TABLE "content_category_relation" DROP CONSTRAINT "fk_content_category_relation_content_1";
 ALTER TABLE "content_category_relation" DROP CONSTRAINT "fk_content_category_relation_product_category_1";
 ALTER TABLE "order_item" DROP CONSTRAINT "fk_order_item_order_1";
@@ -23,7 +23,6 @@ ALTER TABLE "user_payment_type" DROP CONSTRAINT "fk_user_payment_type_user_1";
 ALTER TABLE "user_recevie_address" DROP CONSTRAINT "fk_user_recevie_address_user_1";
 ALTER TABLE "user_role_relation" DROP CONSTRAINT "fk_user_role_role_1";
 ALTER TABLE "user_role_relation" DROP CONSTRAINT "fk_user_role_user_1";
-
 
 DROP TABLE IF EXISTS "cart_item";
 DROP TABLE IF EXISTS "collection";
@@ -86,7 +85,7 @@ CREATE TABLE "collection" (
   "recommend_status" bool,
   "level" int2,
   "parent_id" int4,
-  CONSTRAINT "_copy_2" PRIMARY KEY ("id")
+  PRIMARY KEY ("id")
 );
 
 CREATE TABLE "collection_product" (
@@ -95,7 +94,7 @@ CREATE TABLE "collection_product" (
   "product_id" int4,
   "sort" int2,
   "status" bool,
-  CONSTRAINT "_copy_1" PRIMARY KEY ("id")
+   PRIMARY KEY ("id")
 );
 
 CREATE TABLE "content" (
@@ -245,7 +244,7 @@ CREATE TABLE "product_attribute_value" (
   "product_attribute_id" int4,
   "product_id" int4,
   "value" varchar(255),
-  CONSTRAINT "_copy_3" PRIMARY KEY ("id")
+  PRIMARY KEY ("id")
 );
 
 CREATE TABLE "product_category" (
@@ -258,7 +257,7 @@ CREATE TABLE "product_category" (
   "keywords" varchar(20),
   "description" varchar(255),
   "status" bool,
-  CONSTRAINT "_copy_4" PRIMARY KEY ("id")
+  PRIMARY KEY ("id")
 );
 
 CREATE TABLE "product_detail_template" (
