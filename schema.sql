@@ -1,28 +1,5 @@
-ALTER TABLE "cart_item" DROP CONSTRAINT "fk_cart_item_product_sku_1";
-ALTER TABLE "collection_product" DROP CONSTRAINT "fk_collection_product_collection_1";
-ALTER TABLE "collection_product" DROP CONSTRAINT "fk_collection_product_product_1";
-ALTER TABLE "content_category_relation" DROP CONSTRAINT "fk_content_category_relation_content_1";
-ALTER TABLE "content_category_relation" DROP CONSTRAINT "fk_content_category_relation_product_category_1";
 ALTER TABLE "order_item" DROP CONSTRAINT "fk_order_item_order_1";
-ALTER TABLE "order_item" DROP CONSTRAINT "fk_order_item_product_sku_1";
-ALTER TABLE "order_operate_history" DROP CONSTRAINT "fk_order_operate_history_order_1";
-ALTER TABLE "order_return_apply" DROP CONSTRAINT "fk_order_return_apply_order_1";
-ALTER TABLE "product" DROP CONSTRAINT "fk_product_product_category_1";
-ALTER TABLE "product_attribute" DROP CONSTRAINT "fk_product_attribute_product_1";
-ALTER TABLE "product_attribute_value" DROP CONSTRAINT "fk_product_attribute_value_product_attribute_1";
-ALTER TABLE "product_detail_template_relation" DROP CONSTRAINT "fk_product_detail_template_relation_product_1";
-ALTER TABLE "product_detail_template_relation" DROP CONSTRAINT "fk_product_detail_template_relation_product_detail_template_1";
-ALTER TABLE "product_picture" DROP CONSTRAINT "fk_product_picture_product_1";
-ALTER TABLE "product_recommend" DROP CONSTRAINT "fk_product_recommend_product_1";
 ALTER TABLE "product_sku" DROP CONSTRAINT "fk_product_sku_product_1";
-ALTER TABLE "role_permission_relation" DROP CONSTRAINT "fk_role_permission_relation_permission_1";
-ALTER TABLE "role_permission_relation" DROP CONSTRAINT "fk_role_permission_relation_role_1";
-ALTER TABLE "user_favourite" DROP CONSTRAINT "fk_user_favourite_user_1";
-ALTER TABLE "user_login_history" DROP CONSTRAINT "fk_user_login_history_user_1";
-ALTER TABLE "user_payment_type" DROP CONSTRAINT "fk_user_payment_type_user_1";
-ALTER TABLE "user_recevie_address" DROP CONSTRAINT "fk_user_recevie_address_user_1";
-ALTER TABLE "user_role_relation" DROP CONSTRAINT "fk_user_role_role_1";
-ALTER TABLE "user_role_relation" DROP CONSTRAINT "fk_user_role_user_1";
 
 DROP TABLE IF EXISTS "cart_item";
 DROP TABLE IF EXISTS "collection";
@@ -402,29 +379,6 @@ CREATE TABLE "user_role_relation" (
   PRIMARY KEY ("id")
 );
 
-ALTER TABLE "cart_item" ADD CONSTRAINT "fk_cart_item_product_sku_1" FOREIGN KEY ("product_sku_id") REFERENCES "product_sku" ("id");
-ALTER TABLE "collection_product" ADD CONSTRAINT "fk_collection_product_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-ALTER TABLE "collection_product" ADD CONSTRAINT "fk_collection_product_collection_1" FOREIGN KEY ("collection_id") REFERENCES "collection" ("id");
-ALTER TABLE "content_category_relation" ADD CONSTRAINT "fk_content_category_relation_content_1" FOREIGN KEY ("content_id") REFERENCES "content" ("id");
-ALTER TABLE "content_category_relation" ADD CONSTRAINT "fk_content_category_relation_product_category_1" FOREIGN KEY ("category_id") REFERENCES "product_category" ("id");
 ALTER TABLE "order_item" ADD CONSTRAINT "fk_order_item_order_1" FOREIGN KEY ("order_id") REFERENCES "order" ("id");
-ALTER TABLE "order_item" ADD CONSTRAINT "fk_order_item_product_sku_1" FOREIGN KEY ("product_sku_id") REFERENCES "product_sku" ("id");
-ALTER TABLE "order_operate_history" ADD CONSTRAINT "fk_order_operate_history_order_1" FOREIGN KEY ("order_id") REFERENCES "order" ("id");
-ALTER TABLE "order_return_apply" ADD CONSTRAINT "fk_order_return_apply_order_1" FOREIGN KEY ("order_id") REFERENCES "order" ("id");
-ALTER TABLE "product" ADD CONSTRAINT "fk_product_product_category_1" FOREIGN KEY ("product_category_id") REFERENCES "product_category" ("id");
-ALTER TABLE "product_attribute" ADD CONSTRAINT "fk_product_attribute_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-ALTER TABLE "product_attribute_value" ADD CONSTRAINT "fk_product_attribute_value_product_attribute_1" FOREIGN KEY ("product_attribute_id") REFERENCES "product_attribute" ("id");
-ALTER TABLE "product_detail_template_relation" ADD CONSTRAINT "fk_product_detail_template_relation_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-ALTER TABLE "product_detail_template_relation" ADD CONSTRAINT "fk_product_detail_template_relation_product_detail_template_1" FOREIGN KEY ("template_id") REFERENCES "product_detail_template" ("id");
-ALTER TABLE "product_picture" ADD CONSTRAINT "fk_product_picture_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-ALTER TABLE "product_recommend" ADD CONSTRAINT "fk_product_recommend_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 ALTER TABLE "product_sku" ADD CONSTRAINT "fk_product_sku_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-ALTER TABLE "role_permission_relation" ADD CONSTRAINT "fk_role_permission_relation_permission_1" FOREIGN KEY ("permission_id") REFERENCES "user_permission" ("id");
-ALTER TABLE "role_permission_relation" ADD CONSTRAINT "fk_role_permission_relation_role_1" FOREIGN KEY ("role_id") REFERENCES "user_role" ("id");
-ALTER TABLE "user_favourite" ADD CONSTRAINT "fk_user_favourite_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
-ALTER TABLE "user_login_history" ADD CONSTRAINT "fk_user_login_history_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
-ALTER TABLE "user_payment_type" ADD CONSTRAINT "fk_user_payment_type_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
-ALTER TABLE "user_recevie_address" ADD CONSTRAINT "fk_user_recevie_address_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
-ALTER TABLE "user_role_relation" ADD CONSTRAINT "fk_user_role_role_1" FOREIGN KEY ("role_id") REFERENCES "user_role" ("id");
-ALTER TABLE "user_role_relation" ADD CONSTRAINT "fk_user_role_user_1" FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
