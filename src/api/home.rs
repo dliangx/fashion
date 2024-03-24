@@ -42,7 +42,8 @@ pub async fn home_new_product(state: Data<&PgPool>) -> Result<Json<Vec<ProductIn
                 pic: row.get("preview_pic"), 
                 category: row.get("product_category_name"), 
                 rating: row.get("rating"), 
-                attr: Vec::new(), 
+                attr_title:String::from("size"),
+                attr: Vec::new(),
                 price: row.get("price") 
             })
             .collect();
@@ -64,7 +65,8 @@ pub async fn home_recommend(req: Json<User>,state: Data<&PgPool>) -> Result<Json
         pic: row.get("pic"), 
         category: row.get("category"), 
         rating: row.get("rating"), 
-        attr: Vec::new(), 
+        attr_title:String::from("size"),
+        attr: Vec::new(),
         price: row.get("price") 
     })
     .collect();

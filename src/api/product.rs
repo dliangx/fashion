@@ -14,8 +14,9 @@ pub struct ProductInfo {
     pub product_id: i32,
     pub pic: String,
     pub category: String,
-    pub rating: Option<f32>,
-    pub attr: Vec<ProductAttr>,
+    pub rating: f32,
+    pub attr_title: String,
+    pub attr: Vec<String>,
     pub price: f32,
 }
 
@@ -92,8 +93,14 @@ pub async fn get_collcetion(state:Data<&PgPool>,Path(id):Path<i32>) -> Result<Js
 }
 
 #[handler]
-pub async fn get_product_by_category(state:Data<&PgPool>,req:Json<Category>) -> Result<Json<ProductInfo>>{
-    unimplemented!();
+pub async fn get_product_by_category(state:Data<&PgPool>,req:Json<Category>) -> Result<Json<Vec<ProductInfo>>>{
+
+    let rows = sqlx::query_as::<_,ProductInfo>("SELECT ID,NAME,preview_pic,product_category_id,product_category_name,rating,price FROM product WHERE product_category_id=? OR product_category_name=?")
+                                    .bind(req.id)
+                                    .bind(req.name.clone())
+                                    .fetch_all(state.0)
+                                    .await.map_err(BadRequest)?;
+    Ok(Json(rows))
 }
 
 #[handler]
