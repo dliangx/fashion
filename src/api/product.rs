@@ -1,3 +1,5 @@
+use std::os::macos::raw::stat;
+
 use poem::{error::BadRequest, handler, web::{Data, Json, Path},Result};
 use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
@@ -29,14 +31,14 @@ struct Category {
     parent_id: i32,
 }
 
-#[derive(Debug,Serialize)]
+#[derive(Debug,Serialize,sqlx::FromRow)]
 struct Detail {
     t: String,
     title: String,
     detail: String,
 }
 
-#[derive(Debug,Serialize)]
+#[derive(Debug,Serialize,sqlx::FromRow)]
 struct Picture {
     t: i32,
     sort: i32,
@@ -95,8 +97,7 @@ pub async fn get_collcetion(state:Data<&PgPool>,Path(id):Path<i32>) -> Result<Js
 #[handler]
 pub async fn get_product_by_category(state:Data<&PgPool>,req:Json<Category>) -> Result<Json<Vec<ProductInfo>>>{
 
-    let rows = sqlx::query_as::<_,ProductInfo>("SELECT ID,NAME,preview_pic,product_category_id,product_category_name,rating,price FROM product WHERE product_category_id=? OR product_category_name=?")
-                                    .bind(req.id)
+    let rows = sqlx::query_as::<_,ProductInfo>("SELECT b.ID,b.NAME,b.preview_pic,b.product_category_id,b.product_category_name,b.rating,b.price  from product_category a LEFT JOIN product b on b.product_category_id = a.id where b.product_category_name=?")
                                     .bind(req.name.clone())
                                     .fetch_all(state.0)
                                     .await.map_err(BadRequest)?;
@@ -105,7 +106,22 @@ pub async fn get_product_by_category(state:Data<&PgPool>,req:Json<Category>) -> 
 
 #[handler]
 pub async fn get_product_detail(state:Data<&PgPool>,Path(id):Path<i32>) -> Result<Json<ProductDetail>>{
-    unimplemented!()
+    
+    let info = sqlx::query_as::<_,ProductInfo>("SELECT ID,NAME,preview_pic,product_category_id,product_category_name,rating,price  from product_category where id=?")
+                            .bind(id)
+                            .fetch_one(state.0)
+                            .await.map_err(BadRequest)?;
+    let pics = sqlx::query_as::<_,Picture>("sql")
+                            .bind(id)
+                            .fetch_all(state.0)
+                            .await.map_err(BadRequest)?;
+    let details = sqlx::query_as::<_,Detail>("sql")
+                            .bind(id)
+                            .fetch_all(state.0)
+                            .await.map_err(BadRequest)?;
+
+     Ok(Json(ProductDetail{ info, pics, details })) 
+
 }
 
 
