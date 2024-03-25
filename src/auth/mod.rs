@@ -34,13 +34,18 @@ struct LoginInfo{
 
 #[handler]
 async fn  register(info:Json<LoginInfo>,state: Data<&PgPool>) -> Result<String> {
-    let _ =  sqlx::query("INSERT INTO 'user' ('username', 'password', 'create_time', 'status') VALUES ( ?, ?, now(), TRUE); ")
+    let ids =  sqlx::query("INSERT INTO 'user' ('username', 'password', 'create_time', 'status') VALUES ( ?, ?, now(), TRUE); ")
                     .bind(&info.name)
                     .bind(&info.password)
                     .fetch_one(state.0)
                     .await
                     .map_err(BadRequest);
-    Ok(String::from("success"))
+    match ids {
+        Ok(_) => Ok(String::from("success")),
+        Err(err) => Err(err),
+    }
+        
+    
 }
 
 #[handler]
