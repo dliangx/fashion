@@ -1,7 +1,9 @@
 use chrono::{Duration, Utc};
-use poem::{handler, web::{Data, Json},Result};
+use poem::{error::BadRequest, handler, http::StatusCode, web::{Data, Json}, Error, Result};
 use serde::Deserialize;
 use sqlx::PgPool;
+
+use crate::api::user::UserInfo;
 
 use self::claims::Claims;
 
@@ -10,17 +12,34 @@ mod jwt_middleware;
 
 #[derive(Debug, Deserialize)]
 struct LoginInfo{
-    name: String,
-    password: String,
+    pub name: String,
+    pub password: String,
 }
 
 #[handler]
-fn login(info:Json<LoginInfo>,state: Data<&PgPool>) -> Result<String>{
-    Ok(String::from("success"))
+ async fn  login(info:Json<LoginInfo>,state: Data<&PgPool>) -> Result<String>{
+    let user:UserInfo = sqlx::query_as::<_,UserInfo>("insert username,password from user where username=?")
+                    .bind(&info.name)
+                    .bind(&info.password)
+                    .fetch_one(state.0)
+                    .await
+                    .map_err(BadRequest)?;
+    if info.password.eq(&user.password.unwrap()) {
+        claims::create_jwt(claims::Claims::new(info.name.clone()))
+    }else{
+        Err(Error::from_string("user don't exist!", StatusCode::BAD_REQUEST))
+    }
+    
 }
 
 #[handler]
-fn register(info:Json<LoginInfo>,state: Data<&PgPool>) -> Result<String> {
+async fn  register(info:Json<LoginInfo>,state: Data<&PgPool>) -> Result<String> {
+    let _ =  sqlx::query("INSERT INTO 'user' ('username', 'password', 'create_time', 'status') VALUES ( ?, ?, now(), TRUE); ")
+                    .bind(&info.name)
+                    .bind(&info.password)
+                    .fetch_one(state.0)
+                    .await
+                    .map_err(BadRequest);
     Ok(String::from("success"))
 }
 

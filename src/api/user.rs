@@ -5,18 +5,21 @@ use poem::Result;
 use serde::Deserialize;
 use sqlx::PgPool;
 
-#[derive(Deserialize)]
-struct SubmitInfo {
-    name: String,
-    email: String,
+#[derive(Deserialize,sqlx::FromRow)]
+pub struct UserInfo {
+    pub id:i32,
+    pub name: String,
+    pub password:Option<String>,
+    pub email: String,
 }
 
 
 #[handler]
-pub async fn submit(state:Data<&PgPool>,user:Json<SubmitInfo>) -> Result<String>{
-    let res = sqlx::query("update User set email=? where username=?")
+pub async fn submit(state:Data<&PgPool>,user:Json<UserInfo>) -> Result<String>{
+    let res = sqlx::query("update User set email=? where username=? or id=?")
                                                 .bind(&user.email)
                                                 .bind(&user.name)
+                                                .bind(user.id)
                                                 .fetch_one(state.0)
                                                 .await;
     match res {

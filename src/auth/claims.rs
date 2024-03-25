@@ -1,6 +1,6 @@
 use chrono::{Duration, Utc};
 use jsonwebtoken::{self, DecodingKey, EncodingKey, Header, Validation};
-use poem::error::Unauthorized;
+use poem::error::{BadRequest, Unauthorized};
 use serde::{Deserialize, Serialize};
 
 // Token lifetime and Secret key are hardcoded for clarity
@@ -26,7 +26,7 @@ impl Claims {
 pub(crate) fn create_jwt(claims: Claims) -> poem::Result<String> {
     let encoding_key = EncodingKey::from_secret(SECRET.as_bytes());
     jsonwebtoken::encode(&Header::default(), &claims, &encoding_key)
-        .map_err(Unauthorized) // Just example, here should be the correct way to handle the error
+        .map_err(BadRequest) // Just example, here should be the correct way to handle the error
 }
 
 /// Decode a json web token (JWT)
