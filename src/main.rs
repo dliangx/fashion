@@ -7,7 +7,7 @@ mod auth;
 
 #[shuttle_runtime::main]
 async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
-    pool.execute(include_str!("../schema.sql"))
+    pool.execute(include_str!("../drop.sql"))
         .await
         .map_err(CustomError::new)?;
 
