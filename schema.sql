@@ -1,16 +1,12 @@
-ALTER TABLE "order_item" DROP CONSTRAINT "fk_order_item_order_1";
-ALTER TABLE "product_sku" DROP CONSTRAINT "fk_product_sku_product_1";
-
 DROP TABLE IF EXISTS "cart_item";
 DROP TABLE IF EXISTS "collection";
 DROP TABLE IF EXISTS "collection_product";
 DROP TABLE IF EXISTS "content";
 DROP TABLE IF EXISTS "content_category_relation";
-DROP TABLE IF EXISTS "order";
 DROP TABLE IF EXISTS "order_item";
 DROP TABLE IF EXISTS "order_operate_history";
 DROP TABLE IF EXISTS "order_return_apply";
-DROP TABLE IF EXISTS "product";
+DROP TABLE IF EXISTS "order";
 DROP TABLE IF EXISTS "product_attribute";
 DROP TABLE IF EXISTS "product_attribute_value";
 DROP TABLE IF EXISTS "product_category";
@@ -19,6 +15,7 @@ DROP TABLE IF EXISTS "product_detail_template_relation";
 DROP TABLE IF EXISTS "product_picture";
 DROP TABLE IF EXISTS "product_recommend";
 DROP TABLE IF EXISTS "product_sku";
+DROP TABLE IF EXISTS "product";
 DROP TABLE IF EXISTS "role_permission_relation";
 DROP TABLE IF EXISTS "user";
 DROP TABLE IF EXISTS "user_favourite";
@@ -381,4 +378,3 @@ CREATE TABLE "user_role_relation" (
 
 ALTER TABLE "order_item" ADD CONSTRAINT "fk_order_item_order_1" FOREIGN KEY ("order_id") REFERENCES "order" ("id");
 ALTER TABLE "product_sku" ADD CONSTRAINT "fk_product_sku_product_1" FOREIGN KEY ("product_id") REFERENCES "product" ("id");
-
