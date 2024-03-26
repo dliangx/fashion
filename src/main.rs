@@ -1,4 +1,4 @@
-use poem::{error::BadGateway, get, middleware::AddData, EndpointExt, Route};
+use poem::{ get, middleware::AddData, EndpointExt, Route};
 use shuttle_poem::ShuttlePoem;
 use shuttle_runtime::CustomError;
 use sqlx::{Executor, PgPool};
@@ -7,7 +7,7 @@ mod auth;
 
 #[shuttle_runtime::main]
 async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
-    pool.execute(include_str!("../drop.sql"))
+    pool.execute(include_str!("../schema.sql"))
         .await
         .map_err(CustomError::new)?;
 
