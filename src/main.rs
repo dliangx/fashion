@@ -1,4 +1,4 @@
-use poem::{ get, middleware::AddData, EndpointExt, Route};
+use poem::{get, middleware::AddData, EndpointExt, Route};
 use shuttle_poem::ShuttlePoem;
 use shuttle_runtime::CustomError;
 use sqlx::{Executor, PgPool};
@@ -12,8 +12,14 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
         .map_err(CustomError::new)?;
 
     let app = Route::new()
-        .at("/list_blog", get(api::content::list_blog))
-        .at("/blog/:id", get(api::content::list_blog))
+        .nest("/home", home_route())
         .with(AddData::new(pool));
     Ok(app.into())
+}
+
+fn home_route() -> Route {
+    Route::new()
+        .at("/new_product", get(api::home::home_new_product))
+        .at("/recommend", get(api::home::home_recommend))
+        .at("/new_collection", get(api::home::home_new_collection))
 }
