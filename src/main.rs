@@ -1,10 +1,14 @@
-use poem::{get, middleware::AddData, post, EndpointExt, Route};
+use poem::{get, handler, middleware::AddData, post, EndpointExt, Route};
 use shuttle_poem::ShuttlePoem;
 use shuttle_runtime::CustomError;
 use sqlx::{Executor, PgPool};
 mod api;
 mod auth;
 
+#[handler]
+async fn hello() -> String {
+    "fashion backend".to_string()
+}
 #[shuttle_runtime::main]
 async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
     pool.execute(include_str!("../schema.sql"))
@@ -12,6 +16,7 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
         .map_err(CustomError::new)?;
 
     let api = Route::new()
+        .at("/", get(hello))
         .at("/recommend", post(api::home::home_recommend))
         .at("/submit", post(api::user::submit))
         .at("/get_categorys", post(api::product::get_categorys))
