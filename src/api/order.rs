@@ -1,7 +1,7 @@
 use poem::{
     error::BadRequest,
     handler,
-    web::{Data, Json, Path},
+    web::{Data, Json},
     Result,
 };
 use serde::{Deserialize, Serialize};
@@ -66,7 +66,7 @@ struct Address {
 }
 
 #[derive(Serialize, Deserialize)]
-struct Payment {
+struct PaymentCard {
     userid: i32,
     card_name: String,
     card_num: String,
@@ -81,8 +81,17 @@ pub async fn create_order(items: Json<OrderItem>, state: Data<&PgPool>) -> Resul
 }
 
 #[handler]
-pub fn checkout(order: Json<Order>, state: Data<&PgPool>) -> Result<Json<PayMent>> {
-    unimplemented!()
+pub async fn checkout(order: Json<Order>, state: Data<&PgPool>) -> Result<Json<PayMent>> {
+    let res = sqlx::query("update order set status = 1 where order_sn = ? returning id")
+        .bind(&order.order_sn)
+        .fetch_one(state.0)
+        .await
+        .map_err(BadRequest)?;
+    Ok(Json(PayMent {
+        order_id: res.get(0),
+        order_sn: order.order_sn.clone(),
+        amount: order.pay_amount,
+    }))
 }
 
 #[handler]
@@ -106,7 +115,10 @@ pub async fn add_shipping_address(
 }
 
 #[handler]
-pub async fn add_payment_method(payment: Json<Payment>, state: Data<&PgPool>) -> Result<Json<i32>> {
+pub async fn add_payment_method(
+    payment: Json<PaymentCard>,
+    state: Data<&PgPool>,
+) -> Result<Json<i32>> {
     let res = sqlx::query("insert into user_payment_type (user_id,card_name,card_number,exp_mon,exp_date,cvv,create_date,status ) values ($1,$2,$3,$4,$5,$6,now(),1) returning id")
         .bind(&payment.userid)
         .bind(&payment.card_name)
