@@ -16,7 +16,6 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
         .map_err(CustomError::new)?;
 
     let api = Route::new()
-        .at("/", get(hello))
         .at("/recommend", post(api::home::home_recommend))
         .at("/submit", post(api::user::submit))
         .at("/get_categorys", post(api::product::get_categorys))
@@ -42,6 +41,7 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
         .with(auth::jwt_middleware::JwtMiddleware);
 
     let app = Route::new()
+        .at("/", get(hello))
         .at("/home_new_product", get(api::home::home_new_product))
         .at("/new_product", get(api::home::home_new_product))
         .at("/new_collection", get(api::home::home_new_collection))
