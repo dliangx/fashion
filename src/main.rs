@@ -11,14 +11,13 @@ async fn hello() -> String {
 }
 #[shuttle_runtime::main]
 async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
-    // pool.execute(include_str!("../schema.sql"))
-    //     .await
-    //     .map_err(CustomError::new)?;
+    pool.execute(include_str!("../sql/schema.sql"))
+        .await
+        .map_err(CustomError::new)?;
 
     let api = Route::new()
         .at("/recommend", post(api::home::home_recommend))
         .at("/submit", post(api::user::submit))
-
         .at("/get_collcetion", post(api::product::get_collcetion))
         .at("/get_collections", post(api::product::get_collections))
         .at(
