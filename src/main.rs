@@ -21,6 +21,7 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
     //     .map_err(CustomError::new)?;
     let cors = Cors::default()
         .allow_origin("http://localhost:1420")
+        .allow_origin("https://openfashion-web.netlify.app")
         .allow_method(Method::GET)
         .allow_method(Method::POST)
         .allow_credentials(true);

@@ -72,7 +72,7 @@ pub struct Collections {
 #[handler]
 pub async fn get_categorys(state: Data<&PgPool>) -> Result<Json<Vec<Category>>> {
     let rows = sqlx::query_as::<_, Category>(
-        "select id,parent_id,name,level from product_category where status = true",
+        "select id,parent_id,name,level from product_category where status = true order by id",
     )
     .fetch_all(state.0)
     .await
