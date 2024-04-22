@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS "product_picture";
 DROP TABLE IF EXISTS "product_recommend";
 DROP TABLE IF EXISTS "product_sku";
 DROP TABLE IF EXISTS "product";
-DROP TABLE IF EXISTS "role_permission_relation";
+DROP TABLE IF EXISTS "user_role_permission_relation";
 DROP TABLE IF EXISTS "user";
 DROP TABLE IF EXISTS "user_favourite";
 DROP TABLE IF EXISTS "user_login_history";
@@ -284,7 +284,7 @@ CREATE TABLE "product_sku" (
   PRIMARY KEY ("id")
 );
 
-CREATE TABLE "role_permission_relation" (
+CREATE TABLE "user_role_permission_relation" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "role_id" int4,
   "permission_id" int4,
