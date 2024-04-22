@@ -29,16 +29,6 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
     let api = Route::new()
         .at("/recommend", post(api::home::home_recommend))
         .at("/submit", post(api::user::submit))
-        .at("/get_collcetion", post(api::product::get_collcetion))
-        .at("/get_collections", post(api::product::get_collections))
-        .at(
-            "/get_product_by_category",
-            post(api::product::get_product_by_category),
-        )
-        .at(
-            "/get_product_detail",
-            post(api::product::get_product_detail),
-        )
         .at("/add_payment_method", post(api::order::add_payment_method))
         .at(
             "/add_shipping_address",
@@ -58,6 +48,16 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
         .at("/new_collection", get(api::home::home_new_collection))
         .at("/list_blog", get(api::content::list_blog))
         .at("/blog_detail", get(api::content::blog_detail))
+        .at("/get_collcetion", post(api::product::get_collcetion))
+        .at("/get_collections", post(api::product::get_collections))
+        .at(
+            "/get_product_by_category",
+            post(api::product::get_product_by_category),
+        )
+        .at(
+            "/get_product_detail",
+            post(api::product::get_product_detail),
+        )
         .at("/login", post(auth::login))
         .at("/register", post(auth::register))
         .nest("/api", api)

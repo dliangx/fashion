@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "cart_item";
+DROP TABLE IF EXISTS "user_cart_item";
 DROP TABLE IF EXISTS "collection";
 DROP TABLE IF EXISTS "collection_product";
 DROP TABLE IF EXISTS "content";
@@ -26,13 +26,13 @@ DROP TABLE IF EXISTS "user_recevie_address";
 DROP TABLE IF EXISTS "user_role";
 DROP TABLE IF EXISTS "user_role_relation";
 
-CREATE TABLE "cart_item" (
+CREATE TABLE "user_cart_item" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "product_id" int4 NOT NULL,
   "product_category_id" int4,
   "product_sku_id" int4,
   "user_id" int4,
-  "quantity" int2,
+  "quantity" int4,
   "price" decimal(10,2),
   "sp1" varchar(30),
   "sp2" varchar(30),
@@ -54,10 +54,10 @@ CREATE TABLE "collection" (
   "name" varchar(30) NOT NULL,
   "pic" varchar(50),
   "create_time" date,
-  "sort" int2,
+  "sort" int4,
   "status" bool,
   "recommend_status" bool,
-  "level" int2,
+  "level" int4,
   "parent_id" int4,
   PRIMARY KEY ("id")
 );
@@ -66,7 +66,7 @@ CREATE TABLE "collection_product" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "collection_id" int4,
   "product_id" int4,
-  "sort" int2,
+  "sort" int4,
   "status" bool,
    PRIMARY KEY ("id")
 );
@@ -206,9 +206,9 @@ CREATE TABLE "product_attribute" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "name" varchar(30),
   "product_id" int4,
-  "select_type" int2,
-  "sort" int2,
-  "filter_type" int2,
+  "select_type" int4,
+  "sort" int4,
+  "filter_type" int4,
   "status" bool,
   PRIMARY KEY ("id")
 );
@@ -251,7 +251,7 @@ CREATE TABLE "product_detail_template_relation" (
 CREATE TABLE "product_picture" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "product_id" int4,
-  "type" int2,
+  "type" int4,
   "sort" varchar(10),
   "url" varchar(50),
   "status" bool,
@@ -263,7 +263,7 @@ CREATE TABLE "product_recommend" (
   "id" int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
   "product_id" int4 NOT NULL,
   "product_name" varchar(30),
-  "sort" int2,
+  "sort" int4,
   "status" bool,
   PRIMARY KEY ("id")
 );
@@ -318,7 +318,7 @@ CREATE TABLE "user_login_history" (
   "create_time" date,
   "ip" varchar(20),
   "city" varchar(20),
-  "login_type" int2,
+  "login_type" int4,
   PRIMARY KEY ("id")
 );
 
@@ -327,7 +327,7 @@ CREATE TABLE "user_payment_type" (
   "user_id" int4,
   "card_name" varchar(50),
   "card_number" varchar(50),
-  "exp_mon" int2,
+  "exp_mon" int4,
   "exp_date" varchar(10),
   "cvv" varchar(10),
   "create_date" date,
@@ -340,7 +340,7 @@ CREATE TABLE "user_permission" (
   "name" varchar(30),
   "value" varchar(255),
   "status" bool,
-  "sort" int2,
+  "sort" int4,
   PRIMARY KEY ("id")
 );
 
@@ -364,7 +364,7 @@ CREATE TABLE "user_role" (
   "name" varchar(30),
   "description" varchar(255),
   "create_time" date,
-  "status" int2,
+  "status" int4,
   PRIMARY KEY ("id")
 );
 
