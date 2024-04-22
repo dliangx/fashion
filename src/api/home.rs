@@ -9,7 +9,7 @@ use sqlx::{self, PgPool, Row};
 
 use super::product::{Collection, Collections, ProductInfo};
 
-#[derive(Debug,Deserialize)]
+#[derive(Debug, Deserialize)]
 struct User {
     pub id: i32,
     pub name: String,
@@ -36,22 +36,24 @@ pub async fn home_new_product(state: Data<&PgPool>) -> Result<Json<Vec<ProductIn
             .await
             .map_err(BadRequest)?
             .iter()
-            .map(|row| ProductInfo{ 
-                product_name: row.get("name"), 
-                product_id: row.get("id"), 
-                pic: row.get("preview_pic"), 
-                category: row.get("product_category_name"), 
-                rating: row.get("rating"), 
-                attr_title:String::from("size"),
-                attr: Vec::new(),
-                price: row.get("price") 
+            .map(|row| ProductInfo{
+                product_name: row.get("name"),
+                product_id: row.get("id"),
+                pic: row.get("preview_pic"),
+                category: row.get("product_category_name"),
+                rating: row.get("rating"),
+                description: row.get("description"),
+                price: row.get("price")
             })
             .collect();
-    Ok(Json(rows)) 
+    Ok(Json(rows))
 }
 
 #[handler]
-pub async fn home_recommend(req: Json<User>,state: Data<&PgPool>) -> Result<Json<Vec<ProductInfo>> >{
+pub async fn home_recommend(
+    req: Json<User>,
+    state: Data<&PgPool>,
+) -> Result<Json<Vec<ProductInfo>>> {
     let rows = sqlx::query("SELECT A.product_name AS NAME,A.product_id AS ID,b.preview_pic AS pic,b.product_category_name AS category,b.rating,b.price FROM product_recommend A INNER JOIN product b ON A.product_id=b.ID ORDER BY A.sort DESC limit 3;")
     .bind(req.id)
     .bind(req.name.clone())
@@ -59,16 +61,15 @@ pub async fn home_recommend(req: Json<User>,state: Data<&PgPool>) -> Result<Json
     .await
     .map_err(BadRequest)?
     .iter()
-    .map(|row| ProductInfo{ 
-        product_name: row.get("name"), 
-        product_id: row.get("id"), 
-        pic: row.get("pic"), 
-        category: row.get("category"), 
-        rating: row.get("rating"), 
-        attr_title:String::from("size"),
-        attr: Vec::new(),
-        price: row.get("price") 
+    .map(|row| ProductInfo{
+        product_name: row.get("name"),
+        product_id: row.get("id"),
+        pic: row.get("pic"),
+        category: row.get("category"),
+        rating: row.get("rating"),
+        description: row.get("description"),
+        price: row.get("price")
     })
     .collect();
-Ok(Json(rows)) 
+    Ok(Json(rows))
 }
