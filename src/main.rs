@@ -5,8 +5,7 @@ use poem::{
     post, EndpointExt, Route,
 };
 use shuttle_poem::ShuttlePoem;
-use shuttle_runtime::CustomError;
-use sqlx::{Executor, PgPool};
+use sqlx::PgPool;
 mod api;
 mod auth;
 
@@ -43,13 +42,12 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
     let app = Route::new()
         .at("/", get(hello))
         .at("/get_categorys", get(api::product::get_categorys))
+        .at("/home_recommend_product", get(api::home::home_new_product))
         .at("/home_new_product", get(api::home::home_new_product))
-        .at("/new_product", get(api::home::home_new_product))
-        .at("/new_collection", get(api::home::home_new_collection))
+        .at("/home_new_collection", get(api::home::home_new_collection))
         .at("/list_blog", get(api::content::list_blog))
         .at("/blog_detail", get(api::content::blog_detail))
         .at("/get_collcetion", post(api::product::get_collcetion))
-        .at("/get_collections", post(api::product::get_collections))
         .at(
             "/get_product_by_category",
             post(api::product::get_product_by_category),

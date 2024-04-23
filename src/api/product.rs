@@ -81,24 +81,9 @@ pub async fn get_categorys(state: Data<&PgPool>) -> Result<Json<Vec<Category>>> 
 }
 
 #[handler]
-pub async fn get_collections(
-    state: Data<&PgPool>,
-    Path(id): Path<i32>,
-) -> Result<Json<Collections>> {
-    let rows = sqlx::query_as::<_, Collections>(
-        "select id, name,pic from collection where status = true and level = 2 and id = ?",
-    )
-    .bind(id)
-    .fetch_one(state.0)
-    .await
-    .map_err(BadRequest)?;
-    Ok(Json(rows))
-}
-
-#[handler]
 pub async fn get_collcetion(state: Data<&PgPool>, Path(id): Path<i32>) -> Result<Json<Collection>> {
     let rows = sqlx::query_as::<_, Collection>(
-        "select id, name,pic from collection where status = true and level = 1 and id = ?",
+        "select id, name,pic from collection where status = true  and id = ?",
     )
     .bind(id)
     .fetch_one(state.0)
@@ -145,5 +130,3 @@ pub async fn get_product_detail(
         details,
     }))
 }
-
-pub async fn search_product() {}
