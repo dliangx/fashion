@@ -15,8 +15,8 @@ pub struct ProductAttr {
 
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
 pub struct ProductInfo {
-    pub product_name: String,
-    pub product_id: i32,
+    pub name: String,
+    pub id: i32,
     pub brand: String,
     pub pic: String,
     pub category: String,
@@ -95,7 +95,7 @@ pub async fn get_product_by_category(
     state: Data<&PgPool>,
     req: Json<Category>,
 ) -> Result<Json<Vec<ProductInfo>>> {
-    let rows = sqlx::query_as::<_,ProductInfo>("SELECT b.ID,b.brand, b.NAME,b.preview_pic,b.product_category_id,b.product_category_name,b.rating, b.price  from product_category a LEFT JOIN product b on b.product_category_id = a.id where b.product_category_name=?")
+    let rows = sqlx::query_as::<_,ProductInfo>("SELECT b.ID,b.brand,b.NAME,b.preview_pic AS pic,b.product_category_name AS category,b.rating,b.price FROM product_category A LEFT JOIN product b ON b.product_category_id=A.ID WHERE b.product_category_name='Dresses' ")
                                     .bind(req.name.clone())
                                     .fetch_all(state.0)
                                     .await.map_err(BadRequest)?;

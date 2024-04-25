@@ -30,8 +30,8 @@ pub async fn home_new_product(state: Data<&PgPool>) -> Result<Json<Vec<ProductIn
             .map_err(BadRequest)?
             .iter()
             .map(|row| ProductInfo{
-                product_name: row.get("name"),
-                product_id: row.get("id"),
+                name: row.get("name"),
+                id: row.get("id"),
                 pic: row.get("preview_pic"),
                 category: row.get("product_category_name"),
                 rating: row.get("rating"),
@@ -55,8 +55,8 @@ pub async fn home_recommend(
     .map_err(BadRequest)?
     .iter()
     .map(|row| ProductInfo{
-        product_name: row.get("name"),
-        product_id: row.get("id"),
+        name: row.get("name"),
+        id: row.get("id"),
         pic: row.get("pic"),
         category: row.get("category"),
         rating: row.get("rating"),
