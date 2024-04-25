@@ -17,14 +17,14 @@ struct User {
 
 #[handler]
 pub async fn home_new_collection(state: Data<&PgPool>) -> Result<Json<Vec<Collection>>> {
-    let rows = sqlx::query_as::<_,Collection>("select id,name,pic from collection where status = true and recommend_status = true  order by sort  desc limit 3")
+    let rows = sqlx::query_as::<_,Collection>("select id,name,pic from collection where status = true and recommend_status = true  order by sort  desc limit 5")
                                                     .fetch_all(state.0).await.map_err(BadRequest)?;
     Ok(Json(rows))
 }
 
 #[handler]
 pub async fn home_new_product(state: Data<&PgPool>) -> Result<Json<Vec<ProductInfo>>> {
-    let rows = sqlx::query("SELECT ID,NAME,preview_pic,product_category_name,price,rating FROM product WHERE new_status=TRUE ORDER BY sort LIMIT 10")
+    let rows = sqlx::query("SELECT ID,NAME,brand,preview_pic,product_category_name,price,rating FROM product WHERE new_status=TRUE ORDER BY sort LIMIT 10")
             .fetch_all(state.0)
             .await
             .map_err(BadRequest)?

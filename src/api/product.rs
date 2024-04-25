@@ -21,7 +21,7 @@ pub struct ProductInfo {
     pub pic: String,
     pub category: String,
     pub rating: f32,
-    pub price: f32,
+    pub price: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
@@ -57,8 +57,6 @@ pub struct Collection {
     id: i32,
     name: String,
     pic: String,
-    sort: i32,
-    // products: Vec<ProductInfo>,
 }
 
 #[derive(Debug, Serialize, sqlx::FromRow)]

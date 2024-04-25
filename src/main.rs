@@ -5,7 +5,8 @@ use poem::{
     post, EndpointExt, Route,
 };
 use shuttle_poem::ShuttlePoem;
-use sqlx::PgPool;
+use shuttle_runtime::CustomError;
+use sqlx::{Executor, PgPool};
 mod api;
 mod auth;
 
@@ -15,9 +16,9 @@ async fn hello() -> String {
 }
 #[shuttle_runtime::main]
 async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
-    // pool.execute(include_str!("../sql/schema.sql"))
-    //     .await
-    //     .map_err(CustomError::new)?;
+    pool.execute(include_str!("../sql/schema.sql"))
+        .await
+        .map_err(CustomError::new)?;
     let cors = Cors::default()
         .allow_origin("http://localhost:1420")
         .allow_origin("https://openfashion-web.netlify.app")
@@ -42,7 +43,7 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
     let app = Route::new()
         .at("/", get(hello))
         .at("/get_categorys", get(api::product::get_categorys))
-        .at("/home_recommend_product", get(api::home::home_new_product))
+        .at("/home_recommend_product", get(api::home::home_recommend))
         .at("/home_new_product", get(api::home::home_new_product))
         .at("/home_new_collection", get(api::home::home_new_collection))
         .at("/list_blog", get(api::content::list_blog))
