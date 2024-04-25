@@ -95,7 +95,7 @@ pub async fn get_product_by_category(
     state: Data<&PgPool>,
     req: Json<Category>,
 ) -> Result<Json<Vec<ProductInfo>>> {
-    let rows = sqlx::query_as::<_,ProductInfo>("SELECT b.ID,b.brand,b.NAME,b.preview_pic AS pic,b.product_category_name AS category,b.rating,b.price FROM product_category A LEFT JOIN product b ON b.product_category_id=A.ID WHERE b.product_category_name='Dresses' ")
+    let rows = sqlx::query_as::<_,ProductInfo>("SELECT b.ID,b.brand,b.NAME,b.preview_pic AS pic,b.product_category_name AS category,b.rating,b.price FROM product_category A LEFT JOIN product b ON b.product_category_id=A.ID WHERE b.product_category_name= $1 ")
                                     .bind(req.name.clone())
                                     .fetch_all(state.0)
                                     .await.map_err(BadRequest)?;
