@@ -81,6 +81,22 @@ pub async fn get_categorys(state: Data<&PgPool>) -> Result<Json<Vec<Category>>> 
 }
 
 #[handler]
+pub async fn get_collection_by_page(
+    state: Data<&PgPool>,
+    req: Json<Page>,
+) -> Result<Json<Vec<Collection>>> {
+    let rows = sqlx::query_as::<_, Collection>(
+        "select id, name,pic from collection where status = true LIMIT $2 OFFSET $1",
+    )
+    .bind(req.start.clone())
+    .bind(req.num.clone())
+    .fetch_all(state.0)
+    .await
+    .map_err(BadRequest)?;
+    Ok(Json(rows))
+}
+
+#[handler]
 pub async fn get_collcetion(state: Data<&PgPool>, Path(id): Path<i32>) -> Result<Json<Collection>> {
     let rows = sqlx::query_as::<_, Collection>(
         "select id, name,pic from collection where status = true  and id = ?",
