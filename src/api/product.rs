@@ -103,7 +103,7 @@ pub async fn get_collection_by_page(
 }
 
 #[handler]
-pub async fn get_collcetion(
+pub async fn get_collection(
     state: Data<&PgPool>,
     Path(id): Path<i32>,
 ) -> Result<Json<CollectionDetail>> {
