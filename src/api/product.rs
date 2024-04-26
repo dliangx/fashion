@@ -61,6 +61,12 @@ pub struct Collection {
     pic: String,
 }
 
+#[derive(Debug, Serialize)]
+pub struct CollectionDetail {
+    collection: Collection,
+    products: Vec<ProductInfo>,
+}
+
 #[derive(Debug, Serialize, sqlx::FromRow)]
 pub struct Collections {
     id: i32,
@@ -97,15 +103,44 @@ pub async fn get_collection_by_page(
 }
 
 #[handler]
-pub async fn get_collcetion(state: Data<&PgPool>, Path(id): Path<i32>) -> Result<Json<Collection>> {
-    let rows = sqlx::query_as::<_, Collection>(
-        "select id, name,pic from collection where status = true  and id = ?",
+pub async fn get_collcetion(
+    state: Data<&PgPool>,
+    Path(id): Path<i32>,
+) -> Result<Json<CollectionDetail>> {
+    let collction_rows = sqlx::query_as::<_, Collection>(
+        "select id, name,pic from collection where status = true  and id = $1",
     )
     .bind(id)
     .fetch_one(state.0)
     .await
     .map_err(BadRequest)?;
-    Ok(Json(rows))
+
+    let products_rows = sqlx::query_as::<_, ProductInfo>(
+        "SELECT
+        A.ID,
+       	A.NAME,
+       	A.brand,
+       	A.preview_pic AS pic,
+       	A.product_category_name AS category,
+       	A.rating,
+       	A.price
+                FROM
+       	product
+       	A LEFT JOIN collection_product b ON A.ID = b.product_id
+       	INNER JOIN collection C ON b.collection_id = C.id
+                WHERE
+       	C.ID = $1",
+    )
+    .bind(id)
+    .fetch_all(state.0)
+    .await
+    .map_err(BadRequest)?;
+    let detail: CollectionDetail = CollectionDetail {
+        collection: collction_rows,
+        products: products_rows,
+    };
+
+    Ok(Json(detail))
 }
 
 #[handler]
