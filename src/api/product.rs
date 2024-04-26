@@ -7,6 +7,8 @@ use poem::{
 use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
 
+use super::Page;
+
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
 pub struct ProductAttr {
     pub name: String,
@@ -97,6 +99,19 @@ pub async fn get_product_by_category(
 ) -> Result<Json<Vec<ProductInfo>>> {
     let rows = sqlx::query_as::<_,ProductInfo>("SELECT b.ID,b.brand,b.NAME,b.preview_pic AS pic,b.product_category_name AS category,b.rating,b.price FROM product_category A LEFT JOIN product b ON b.product_category_id=A.ID WHERE b.product_category_name= $1 ")
                                     .bind(req.name.clone())
+                                    .fetch_all(state.0)
+                                    .await.map_err(BadRequest)?;
+    Ok(Json(rows))
+}
+
+#[handler]
+pub async fn get_product_by_page(
+    state: Data<&PgPool>,
+    req: Json<Page>,
+) -> Result<Json<Vec<ProductInfo>>> {
+    let rows = sqlx::query_as::<_,ProductInfo>("SELECT ID,brand,NAME,preview_pic AS pic,product_category_name AS category,rating,price FROM product LIMIT $2 OFFSET $1; ")
+                                    .bind(req.start.clone())
+                                    .bind(req.num.clone())
                                     .fetch_all(state.0)
                                     .await.map_err(BadRequest)?;
     Ok(Json(rows))
