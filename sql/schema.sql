@@ -645,7 +645,7 @@ INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url
 INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (23, 12, 2, '0', '/assets/p30.png', 't');
 INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (24, 12, 2, '1', '/assets/p31.png', 't');
 INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (25, 12, 2, '2', '/assets/p32.png', 't');
-INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (26, 12, 2, '3', '/assets/p34.png', 't');
+INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (26, 12, 2, '3', '/assets/p33.png', 't');
 INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (27, 12, 3, '0', '/assets/p20.png', 't');
 INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (28, 12, 3, '1', '/assets/p21.png', 't');
 INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (29, 12, 3, '2', '/assets/p22.png', 't');
