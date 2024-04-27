@@ -49,7 +49,7 @@ struct Picture {
 }
 
 #[derive(Debug, Serialize, sqlx::FromRow)]
-struct Arrtibute {
+struct Attribute {
     id: i32,
     name: String,
     value: String,
@@ -59,7 +59,7 @@ struct Arrtibute {
 struct ProductDetail {
     info: ProductInfo,
     pics: Vec<Picture>,
-    attr: Vec<Arrtibute>,
+    attr: Vec<Attribute>,
     details: Vec<Detail>,
 }
 
@@ -256,7 +256,7 @@ pub async fn get_product_detail(
     .await
     .map_err(BadRequest)?;
 
-    let attr = sqlx::query_as::<_, Arrtibute>(
+    let attr = sqlx::query_as::<_, Attribute>(
         "
         SELECT
            	e.ID,
