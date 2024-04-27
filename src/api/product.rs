@@ -47,10 +47,19 @@ struct Picture {
     sort: i32,
     url: String,
 }
+
+#[derive(Debug, Serialize, sqlx::FromRow)]
+struct Arrtibute {
+    id: i32,
+    name: String,
+    value: String,
+}
+
 #[derive(Debug, Serialize)]
 struct ProductDetail {
     info: ProductInfo,
     pics: Vec<Picture>,
+    attr: Vec<Arrtibute>,
     details: Vec<Detail>,
 }
 
@@ -173,23 +182,88 @@ pub async fn get_product_detail(
     state: Data<&PgPool>,
     Path(id): Path<i32>,
 ) -> Result<Json<ProductDetail>> {
-    let info = sqlx::query_as::<_,ProductInfo>("SELECT ID,NAME,preview_pic,product_category_id,product_category_name,rating,price  from product_category where id=?")
-                            .bind(id)
-                            .fetch_one(state.0)
-                            .await.map_err(BadRequest)?;
-    let pics = sqlx::query_as::<_, Picture>("sql")
-        .bind(id)
-        .fetch_all(state.0)
-        .await
-        .map_err(BadRequest)?;
-    let details = sqlx::query_as::<_, Detail>("sql")
-        .bind(id)
-        .fetch_all(state.0)
-        .await
-        .map_err(BadRequest)?;
+    let info = sqlx::query_as::<_, ProductInfo>(
+        "
+        SELECT
+           	ID,
+           	NAME,
+           	brand,
+           	preview_pic AS pic,
+           	product_category_id,
+           	product_category_name AS category,
+           	rating,
+           	price
+        FROM
+            product
+        WHERE
+            ID = $1;
+        ",
+    )
+    .bind(id)
+    .fetch_one(state.0)
+    .await
+    .map_err(BadRequest)?;
+    let pics = sqlx::query_as::<_, Picture>(
+        "
+        SELECT
+           	A.TYPE AS T,
+           	A.sort,
+           	A.url
+        FROM
+           	product_picture
+           	A LEFT JOIN product b ON A.product_id = b.ID
+        WHERE
+           	A.status = TRUE
+           	AND b.ID = $1;
+        ",
+    )
+    .bind(id)
+    .fetch_all(state.0)
+    .await
+    .map_err(BadRequest)?;
+    let details = sqlx::query_as::<_, Detail>(
+        "
+        SELECT
+           	A.TYPE as t,
+           	A.title,
+           	A.detail
+        FROM
+           	product_detail_template
+           	A LEFT JOIN product_detail_template_relation b ON A.ID = b.template_id
+           	INNER JOIN product C ON b.product_id = C.ID
+        WHERE
+       	    C.ID = $1;
+        ",
+    )
+    .bind(id)
+    .fetch_all(state.0)
+    .await
+    .map_err(BadRequest)?;
+
+    let attr = sqlx::query_as::<_, Arrtibute>(
+        "
+        SELECT
+           	e.ID,
+           	b.NAME,
+           	A.VALUE
+        FROM
+           	product_attribute_value
+           	A LEFT JOIN product_attribute b ON A.product_attribute_id = b.
+           	ID RIGHT JOIN product_category_attribute_relation C ON b.ID = C.attribute_id
+           	INNER JOIN product_category d ON d.ID = C.category_id
+           	LEFT JOIN product e ON d.ID = e.product_category_id
+        WHERE
+           	e.ID = $1;
+        ",
+    )
+    .bind(id)
+    .fetch_all(state.0)
+    .await
+    .map_err(BadRequest)?;
 
     Ok(Json(ProductDetail {
         info,
+        attr,
         pics,
         details,
     }))
