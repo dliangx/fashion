@@ -169,11 +169,27 @@ pub async fn get_product_by_page(
     state: Data<&PgPool>,
     req: Json<Page>,
 ) -> Result<Json<Vec<ProductInfo>>> {
-    let rows = sqlx::query_as::<_,ProductInfo>("SELECT ID,brand,NAME,preview_pic AS pic,product_category_name AS category,rating,price FROM product LIMIT $2 OFFSET $1; ")
-                                    .bind(req.start.clone())
-                                    .bind(req.num.clone())
-                                    .fetch_all(state.0)
-                                    .await.map_err(BadRequest)?;
+    let rows = sqlx::query_as::<_, ProductInfo>(
+        "
+        SELECT
+            ID,
+           	brand,
+           	NAME,
+           	preview_pic AS pic,
+           	product_category_name AS category,
+           	rating,
+           	price
+        FROM
+            product
+        ORDER BY
+            ID
+        LIMIT $2 OFFSET $1; ",
+    )
+    .bind(req.start.clone())
+    .bind(req.num.clone())
+    .fetch_all(state.0)
+    .await
+    .map_err(BadRequest)?;
     Ok(Json(rows))
 }
 
