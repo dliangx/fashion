@@ -37,8 +37,8 @@ pub async fn login(info: Json<LoginInfo>, state: Data<&PgPool>) -> Result<String
     //     ))
     // }
     match user {
-        Ok(info) => {
-            if info.password.eq(&info.password) {
+        Ok(user) => {
+            if user.password.eq(&info.password) {
                 claims::create_jwt(claims::Claims::new(info.name.clone()))
             } else {
                 Err(Error::from_string(
