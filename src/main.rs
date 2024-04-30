@@ -15,7 +15,10 @@ async fn hello() -> String {
     "fashion backend".to_string()
 }
 #[shuttle_runtime::main]
-async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
+async fn poem(
+    #[shuttle_shared_db::Postgres(local_uri = "postgres://liang:postgres@localhost:5432/fashion")]
+    pool: PgPool,
+) -> ShuttlePoem<impl poem::Endpoint> {
     pool.execute(include_str!("../sql/schema.sql"))
         .await
         .map_err(CustomError::new)?;

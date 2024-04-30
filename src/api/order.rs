@@ -55,7 +55,7 @@ pub struct PayMent {
 
 #[derive(Serialize, Deserialize)]
 struct Address {
-    userid: i32,
+    username: i32,
     first_name: String,
     second_name: String,
     address: String,
@@ -67,7 +67,8 @@ struct Address {
 
 #[derive(Serialize, Deserialize)]
 struct PaymentCard {
-    userid: i32,
+    username: i32,
+    card_type: i32,
     card_name: String,
     card_num: String,
     exp_mon: String,
@@ -99,8 +100,8 @@ pub async fn add_shipping_address(
     address: Json<Address>,
     state: Data<&PgPool>,
 ) -> Result<Json<i32>> {
-    let res = sqlx::query("insert into user_recevie_addres (user_id,firse_name,second_name,address,city,state,zip,phone) values ($1,$2,$3,$4,$5,$6,$7,$8,1) returning id")
-        .bind(&address.userid)
+    let res = sqlx::query("insert into user_recevie_addres (user_name,firse_name,second_name,address,city,state,zip,phone,status) values ($1,$2,$3,$4,$5,$6,$7,$8,1) returning id")
+        .bind(&address.username)
         .bind(&address.first_name)
         .bind(&address.second_name)
         .bind(&address.address)
@@ -119,13 +120,14 @@ pub async fn add_payment_method(
     payment: Json<PaymentCard>,
     state: Data<&PgPool>,
 ) -> Result<Json<i32>> {
-    let res = sqlx::query("insert into user_payment_type (user_id,card_name,card_number,exp_mon,exp_date,cvv,create_date,status ) values ($1,$2,$3,$4,$5,$6,now(),1) returning id")
-        .bind(&payment.userid)
+    let res = sqlx::query("insert into user_payment_type (user_name,card_name,card_number,exp_mon,exp_date,cvv,card_type,create_date,status ) values ($1,$2,$3,$4,$5,$6,$7,now(),1) returning id")
+        .bind(&payment.username)
         .bind(&payment.card_name)
         .bind(&payment.card_num)
         .bind(&payment.exp_mon)
         .bind(&payment.exp_date)
         .bind(&payment.cvv)
+        .bind(&payment.card_type)
         .fetch_one(state.0)
         .await
         .map_err(BadRequest)?;
