@@ -8,8 +8,6 @@ use poem::{
 use serde::Deserialize;
 use sqlx::PgPool;
 
-use self::claims::Claims;
-
 pub mod claims;
 pub mod jwt_middleware;
 
@@ -82,12 +80,5 @@ pub fn refresh_token(token: String) -> poem::Result<String> {
     let mut claims = claims::decode_jwt(&token).unwrap();
     claims.exp =
         (Utc::now() + Duration::try_hours(claims::JWT_EXPIRATION_HOURS).unwrap()).timestamp();
-    claims::create_jwt(claims)
-}
-
-#[handler]
-pub async fn create_token(username: String) -> poem::Result<String> {
-    // Create a JWT
-    let claims = Claims::new(username);
     claims::create_jwt(claims)
 }

@@ -39,7 +39,6 @@ async fn poem(
         )
         .at("/create_order", post(api::order::create_order))
         .at("/checkout", post(api::order::checkout))
-        .at("/create_token", post(auth::create_token))
         .at("/refresh_token", post(auth::refresh_token))
         .with(auth::jwt_middleware::JwtMiddleware);
 

@@ -15,10 +15,9 @@ pub struct UserInfo {
 
 #[handler]
 pub async fn submit(state: Data<&PgPool>, user: Json<UserInfo>) -> Result<String> {
-    let res = sqlx::query("update User set email=? where username=? or id=?")
+    let res = sqlx::query("update \"user\" set email=$1 where username=$2 ")
         .bind(&user.email)
         .bind(&user.name)
-        .bind(user.id)
         .fetch_one(state.0)
         .await;
     match res {
