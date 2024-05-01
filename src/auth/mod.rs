@@ -3,7 +3,7 @@ use poem::{
     handler,
     http::StatusCode,
     web::{Data, Json},
-    Error, Result,
+    Error, Request, Result,
 };
 use serde::Deserialize;
 use sqlx::PgPool;
@@ -78,8 +78,10 @@ pub async fn register(info: Json<LoginInfo>, state: Data<&PgPool>) -> Result<Str
 }
 
 #[handler]
-pub fn refresh_token(username: String) -> poem::Result<String> {
-    let mut res = Claims::new(username);
-    res.exp = (Utc::now() + Duration::try_hours(claims::JWT_EXPIRATION_HOURS).unwrap()).timestamp();
-    claims::create_jwt(res)
+pub fn refresh_token(req: &Request) -> poem::Result<String> {
+    let res = req.extensions().get::<Claims>().unwrap();
+    let mut claim: Claims = Claims::new(res.username.clone());
+    claim.exp =
+        (Utc::now() + Duration::try_hours(claims::JWT_EXPIRATION_HOURS).unwrap()).timestamp();
+    claims::create_jwt(claim)
 }

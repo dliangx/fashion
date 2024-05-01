@@ -30,7 +30,6 @@ pub(crate) fn create_jwt(claims: Claims) -> poem::Result<String> {
 
 /// Decode a json web token (JWT)
 pub(crate) fn decode_jwt(token: &str) -> poem::Result<Claims> {
-    println!("token:{}", &token);
     let decoding_key = DecodingKey::from_secret(SECRET.as_bytes());
     jsonwebtoken::decode::<Claims>(token, &decoding_key, &Validation::default())
         .map(|data| data.claims)
