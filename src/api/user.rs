@@ -1,6 +1,8 @@
 use poem::handler;
+use poem::http::StatusCode;
 use poem::web::Data;
 use poem::web::Json;
+use poem::Error;
 use poem::Result;
 use serde::Deserialize;
 use sqlx::PgPool;
@@ -22,9 +24,6 @@ pub async fn submit(state: Data<&PgPool>, user: Json<UserInfo>) -> Result<String
         .await;
     match res {
         Ok(_) => Ok(String::from("success")),
-        Err(err) => {
-            println!("err message: {:?}", err);
-            Ok(String::from("fail"))
-        }
+        Err(err) => Err(Error::from_string(err.to_string(), StatusCode::BAD_GATEWAY)),
     }
 }
