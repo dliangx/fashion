@@ -31,7 +31,6 @@ async fn poem(
 
     let api = Route::new()
         .at("/recommend", post(api::home::home_recommend))
-        .at("/submit", post(api::user::submit))
         .at("/add_payment_method", post(api::order::add_payment_method))
         .at(
             "/add_shipping_address",
@@ -40,6 +39,7 @@ async fn poem(
         .at("/create_order", post(api::order::create_order))
         .at("/checkout", post(api::order::checkout))
         .at("/refresh_token", post(auth::refresh_token))
+        .at("/submit", post(api::user::submit))
         .with(auth::jwt_middleware::JwtMiddleware);
 
     let app = Route::new()

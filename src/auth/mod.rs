@@ -8,6 +8,8 @@ use poem::{
 use serde::Deserialize;
 use sqlx::PgPool;
 
+use crate::auth::claims::Claims;
+
 pub mod claims;
 pub mod jwt_middleware;
 
@@ -76,9 +78,8 @@ pub async fn register(info: Json<LoginInfo>, state: Data<&PgPool>) -> Result<Str
 }
 
 #[handler]
-pub fn refresh_token(token: String) -> poem::Result<String> {
-    let mut claims = claims::decode_jwt(&token).unwrap();
-    claims.exp =
-        (Utc::now() + Duration::try_hours(claims::JWT_EXPIRATION_HOURS).unwrap()).timestamp();
-    claims::create_jwt(claims)
+pub fn refresh_token(username: String) -> poem::Result<String> {
+    let mut res = Claims::new(username);
+    res.exp = (Utc::now() + Duration::try_hours(claims::JWT_EXPIRATION_HOURS).unwrap()).timestamp();
+    claims::create_jwt(res)
 }
