@@ -31,7 +31,12 @@ async fn poem(
 
     let api = Route::new()
         .at("/recommend", post(api::home::home_recommend))
+        .at("/get_payment_method", post(api::order::get_payment_method))
         .at("/add_payment_method", post(api::order::add_payment_method))
+        .at(
+            "/get_shipping_address",
+            post(api::order::get_shipping_address),
+        )
         .at(
             "/add_shipping_address",
             post(api::order::add_shipping_address),

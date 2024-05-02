@@ -1,12 +1,12 @@
 use poem::{
-    error::BadRequest,
+    error::{BadRequest, NotFound, NotFoundError},
     handler,
     web::{Data, Json},
     Result,
 };
 use serde::{Deserialize, Serialize};
-use sqlx::PgPool;
 use sqlx::Row;
+use sqlx::{prelude::FromRow, PgPool};
 
 #[derive(Serialize, Deserialize)]
 pub struct Order {
@@ -53,7 +53,7 @@ pub struct PayMent {
     amount: f32,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, FromRow)]
 struct Address {
     username: i32,
     first_name: String,
@@ -65,7 +65,7 @@ struct Address {
     phone: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, FromRow)]
 struct PaymentCard {
     username: i32,
     card_type: i32,
@@ -96,11 +96,25 @@ pub async fn checkout(order: Json<Order>, state: Data<&PgPool>) -> Result<Json<P
 }
 
 #[handler]
+pub async fn get_shipping_address(
+    username: String,
+    state: Data<&PgPool>,
+) -> Result<Json<Vec<Address>>> {
+    let rows =
+        sqlx::query_as::<_, Address>("select user_name as username,first_name,second_name,address,city,state,zipcode,phone from user_recevie_address where user_name = $1 and status=true;")
+            .bind(username)
+            .fetch_all(state.0)
+            .await
+            .map_err(NotFound)?;
+    Ok(Json(rows))
+}
+
+#[handler]
 pub async fn add_shipping_address(
     address: Json<Address>,
     state: Data<&PgPool>,
 ) -> Result<Json<i32>> {
-    let res = sqlx::query("insert into user_recevie_addres (user_name,firse_name,second_name,address,city,state,zip,phone,status) values ($1,$2,$3,$4,$5,$6,$7,$8,1) returning id")
+    let res = sqlx::query("insert into user_recevie_address (user_name ,firse_name,second_name,address,city,state,zip,phone,status) values ($1,$2,$3,$4,$5,$6,$7,$8,1) returning id")
         .bind(&address.username)
         .bind(&address.first_name)
         .bind(&address.second_name)
@@ -113,6 +127,20 @@ pub async fn add_shipping_address(
         .await
         .map_err(BadRequest)?;
     Ok(Json(res.get("id")))
+}
+
+#[handler]
+pub async fn get_payment_method(
+    username: String,
+    state: Data<&PgPool>,
+) -> Result<Json<Vec<PaymentCard>>> {
+    let rows =
+        sqlx::query_as::<_, PaymentCard>("select user_name as username,card_name,card_number,exp_mon,exp_date,cvv,card_type from user_payment_type where user_name = $1 and status=true;")
+            .bind(username)
+            .fetch_all(state.0)
+            .await
+            .map_err(NotFound)?;
+    Ok(Json(rows))
 }
 
 #[handler]
