@@ -49,12 +49,10 @@ async fn poem(
 
     let app = Route::new()
         .at("/", get(hello))
-        .at("/get_categorys", get(api::product::get_categorys))
+        .at("/get_category", get(api::product::get_categorys))
         .at("/home_recommend_product", get(api::home::home_recommend))
         .at("/home_new_product", get(api::home::home_new_product))
         .at("/home_new_collection", get(api::home::home_new_collection))
-        .at("/list_blog", get(api::content::list_blog))
-        .at("/blog_detail", get(api::content::blog_detail))
         .at(
             "/get_collection_by_page",
             post(api::product::get_collection_by_page),
