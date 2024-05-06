@@ -47,7 +47,7 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
     let app = Route::new()
         .at("/", get(hello))
         .at("/get_category", get(api::product::get_categorys))
-        .at("/home_recommend_product", get(api::home::home_recommend))
+        .at("/home_recommend_product", post(api::home::home_recommend))
         .at("/home_new_product", get(api::home::home_new_product))
         .at("/home_new_collection", get(api::home::home_new_collection))
         .at(
