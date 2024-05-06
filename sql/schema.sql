@@ -632,3 +632,9 @@ INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url
 INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (28, 12, 3, '1', '/assets/p21.png', 't');
 INSERT INTO "public"."product_picture" ("id", "product_id", "type", "sort", "url", "status") VALUES (29, 12, 3, '2', '/assets/p22.png', 't');
 COMMIT;
+
+BEGIN;
+INSERT INTO product_recommend ("id", "product_id", "product_name", "sort", "status") VALUES (1, 14, 'Lace Stitch Knit Dress', 1, 't');
+INSERT INTO product_recommend ("id", "product_id", "product_name", "sort", "status") VALUES (2, 15, 'Gather Sleeve Midi Dress', 2, 't');
+INSERT INTO product_recommend ("id", "product_id", "product_name", "sort", "status") VALUES (3, 16, 'French Linen Godet Dress', 3, 't');
+COMMIT;

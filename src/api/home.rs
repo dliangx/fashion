@@ -11,7 +11,7 @@ use super::product::{Collection, ProductInfo};
 
 #[derive(Debug, Deserialize)]
 struct User {
-    pub name: String,
+    pub name: Option<String>,
 }
 
 #[handler]
