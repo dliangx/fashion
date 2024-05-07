@@ -246,9 +246,10 @@ pub async fn get_product_detail(
         FROM
            	product_detail_template
            	A LEFT JOIN product_detail_template_relation b ON A.ID = b.template_id
-           	INNER JOIN product C ON b.product_id = C.ID
+            INNER JOIN product_category C ON b.category_id = C.ID
+            LEFT JOIN product d on d.product_category_id =  c.id
         WHERE
-       	    C.ID = $1;
+       	    d.ID = $1;
         ",
     )
     .bind(id)
