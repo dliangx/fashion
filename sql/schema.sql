@@ -38,7 +38,7 @@ CREATE TABLE "user_cart_item" (
   "product_name" varchar(50),
   "product_sn" varchar(50),
   "product_sku_code" varchar(50),
-  "user_nickname" varchar(30),
+  "user_name" varchar(30),
   "create_date" date,
   "modify_date" date,
   "delete_status" bool,
