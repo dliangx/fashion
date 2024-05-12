@@ -1,5 +1,5 @@
 use poem::http::header::AUTHORIZATION;
-use poem::http::{status, StatusCode};
+use poem::http::StatusCode;
 use poem::{Endpoint, Error, Middleware, Request, Result};
 
 use super::claims::Claims;

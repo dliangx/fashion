@@ -1,5 +1,5 @@
 use poem::{
-    error::{BadRequest, NotFound, NotFoundError},
+    error::{BadRequest, NotFound},
     handler,
     web::{Data, Json},
     Result,
