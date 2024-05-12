@@ -1,7 +1,7 @@
 use poem::{
     error::{BadRequest, NotFound},
     handler,
-    web::{Data, Json},
+    web::{Data, Json, Path},
     Result,
 };
 use serde::{Deserialize, Serialize};
@@ -53,6 +53,11 @@ pub struct PayMent {
     amount: f32,
 }
 
+#[derive(Serialize, Deserialize)]
+struct User {
+    username: String,
+}
+
 #[derive(Serialize, Deserialize, FromRow)]
 struct Address {
     username: String,
@@ -97,12 +102,12 @@ pub async fn checkout(order: Json<Order>, state: Data<&PgPool>) -> Result<Json<P
 
 #[handler]
 pub async fn get_shipping_address(
-    username: String,
+    user: Json<User>,
     state: Data<&PgPool>,
 ) -> Result<Json<Vec<Address>>> {
     let rows =
-        sqlx::query_as::<_, Address>("select user_name as username,first_name,second_name,address,city,state,zipcode,phone from user_recevie_address where user_name = $1 and status=true;")
-            .bind(username)
+        sqlx::query_as::<_, Address>("select user_name as username,first_name,second_name,address,city,state,zipcode as zip,phone from user_recevie_address where user_name = $1 and status=true;")
+            .bind(&user.username)
             .fetch_all(state.0)
             .await
             .map_err(NotFound)?;
@@ -130,12 +135,12 @@ pub async fn add_shipping_address(address: Json<Address>, state: Data<&PgPool>) 
 
 #[handler]
 pub async fn get_payment_method(
-    username: String,
+    user: Json<User>,
     state: Data<&PgPool>,
 ) -> Result<Json<Vec<PaymentCard>>> {
     let rows =
-        sqlx::query_as::<_, PaymentCard>("select user_name as username,card_name,card_number,exp_mon,exp_date,cvv,card_type from user_payment_type where user_name = $1 and status=true;")
-            .bind(username)
+        sqlx::query_as::<_, PaymentCard>("select user_name as username,card_name,card_number as card_num,exp_mon,exp_year,cvv,card_type from user_payment_type where user_name = $1 and status=true;")
+            .bind(&user.username)
             .fetch_all(state.0)
             .await
             .map_err(NotFound)?;
