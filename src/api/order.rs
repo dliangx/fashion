@@ -55,7 +55,7 @@ pub struct PayMent {
 
 #[derive(Serialize, Deserialize, FromRow)]
 struct Address {
-    username: i32,
+    username: String,
     first_name: String,
     second_name: String,
     address: String,
@@ -67,12 +67,12 @@ struct Address {
 
 #[derive(Serialize, Deserialize, FromRow)]
 struct PaymentCard {
-    username: i32,
+    username: String,
     card_type: i32,
     card_name: String,
     card_num: String,
     exp_mon: String,
-    exp_date: String,
+    exp_year: String,
     cvv: String,
 }
 
@@ -110,11 +110,8 @@ pub async fn get_shipping_address(
 }
 
 #[handler]
-pub async fn add_shipping_address(
-    address: Json<Address>,
-    state: Data<&PgPool>,
-) -> Result<Json<i32>> {
-    let res = sqlx::query("insert into user_recevie_address (user_name ,firse_name,second_name,address,city,state,zip,phone,status) values ($1,$2,$3,$4,$5,$6,$7,$8,1) returning id")
+pub async fn add_shipping_address(address: Json<Address>, state: Data<&PgPool>) -> Result<String> {
+    let res = sqlx::query("insert into user_recevie_address (user_name ,first_name,second_name,address,city,state,zipcode,phone,status) values ($1,$2,$3,$4,$5,$6,$7,$8,true) returning id")
         .bind(&address.username)
         .bind(&address.first_name)
         .bind(&address.second_name)
@@ -126,7 +123,9 @@ pub async fn add_shipping_address(
         .fetch_one(state.0)
         .await
         .map_err(BadRequest)?;
-    Ok(Json(res.get("id")))
+    let id: i32 = res.get("id");
+    println!("id:{}", id);
+    Ok(String::from("success"))
 }
 
 #[handler]
@@ -147,17 +146,19 @@ pub async fn get_payment_method(
 pub async fn add_payment_method(
     payment: Json<PaymentCard>,
     state: Data<&PgPool>,
-) -> Result<Json<i32>> {
-    let res = sqlx::query("insert into user_payment_type (user_name,card_name,card_number,exp_mon,exp_date,cvv,card_type,create_date,status ) values ($1,$2,$3,$4,$5,$6,$7,now(),1) returning id")
+) -> Result<String> {
+    let res = sqlx::query("insert into user_payment_type (user_name,card_name,card_number,exp_mon,exp_year,cvv,card_type,create_date,status ) values ($1,$2,$3,$4,$5,$6,$7,now(),true) returning id")
         .bind(&payment.username)
         .bind(&payment.card_name)
         .bind(&payment.card_num)
         .bind(&payment.exp_mon)
-        .bind(&payment.exp_date)
+        .bind(&payment.exp_year)
         .bind(&payment.cvv)
         .bind(&payment.card_type)
         .fetch_one(state.0)
         .await
         .map_err(BadRequest)?;
-    Ok(Json(res.get("id")))
+    let id: i32 = res.get("id");
+    println!("id:{}", id);
+    Ok(String::from("success"))
 }
