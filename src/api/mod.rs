@@ -1,6 +1,5 @@
 use serde::Deserialize;
 
-pub mod content;
 pub mod home;
 pub mod order;
 pub mod product;
