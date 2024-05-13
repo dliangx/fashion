@@ -76,7 +76,7 @@ CREATE TABLE "order" (
   "total_amount" int8,
   "pay_amount" int8,
   "freight_amount" int8,
-  "pay_type" varchar(10),
+  "pay_type" int4,
   "source_type" varchar(10),
   "delivery_sn" varchar(50),
   "receiver_name" varchar(30),
