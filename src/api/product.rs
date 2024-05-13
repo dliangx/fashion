@@ -23,7 +23,7 @@ pub struct ProductInfo {
     pub pic: String,
     pub category: String,
     pub rating: f32,
-    pub price: i32,
+    pub price: i64,
 }
 
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]

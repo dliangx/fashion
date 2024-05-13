@@ -13,9 +13,9 @@ pub struct Order {
     user_id: i32,
     order_sn: String,
     user_name: String,
-    total_amount: f32,
-    pay_amount: f32,
-    freight_amount: f32,
+    total_amount: i64,
+    pay_amount: i64,
+    freight_amount: i64,
     pay_type: String,
     source_type: String,
     delivery_sn: String,
@@ -36,21 +36,23 @@ pub struct OrderItem {
     product_pic: String,
     product_name: String,
     product_sn: String,
-    product_price: f32,
+    product_price: i64,
     product_quantity: i32,
     product_sku_id: i32,
     product_category_id: i32,
     product_attr: String,
-    sp1: String,
-    sp2: String,
-    sp3: String,
+}
+#[derive(Serialize, Deserialize)]
+pub struct OrderInfo {
+    user_id: i32,
+    order_id: i32,
+    order_sn: String,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct PayMent {
     order_id: i32,
     order_sn: String,
-    amount: f32,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -87,16 +89,16 @@ pub async fn create_order(items: Json<OrderItem>, state: Data<&PgPool>) -> Resul
 }
 
 #[handler]
-pub async fn checkout(order: Json<Order>, state: Data<&PgPool>) -> Result<Json<PayMent>> {
-    let res = sqlx::query("update order set status = 1 where order_sn = ? returning id")
-        .bind(&order.order_sn)
-        .fetch_one(state.0)
-        .await
-        .map_err(BadRequest)?;
+pub async fn checkout(order: Json<OrderInfo>, state: Data<&PgPool>) -> Result<Json<PayMent>> {
+    let res =
+        sqlx::query("update \"order\" set order_status = 2 where order_sn = $1 returning id;")
+            .bind(&order.order_sn)
+            .fetch_one(state.0)
+            .await
+            .map_err(BadRequest)?;
     Ok(Json(PayMent {
-        order_id: res.get(0),
+        order_id: res.get("id"),
         order_sn: order.order_sn.clone(),
-        amount: order.pay_amount,
     }))
 }
 
