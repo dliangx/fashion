@@ -1,7 +1,7 @@
 use poem::{
     error::{BadRequest, NotFound},
     handler,
-    web::{Data, Json, Path},
+    web::{Data, Json},
     Result,
 };
 use serde::{Deserialize, Serialize};
@@ -44,8 +44,7 @@ pub struct OrderItem {
 }
 #[derive(Serialize, Deserialize)]
 pub struct OrderInfo {
-    user_id: i32,
-    order_id: i32,
+    user_name: String,
     order_sn: String,
 }
 
@@ -90,12 +89,14 @@ pub async fn create_order(items: Json<OrderItem>, state: Data<&PgPool>) -> Resul
 
 #[handler]
 pub async fn checkout(order: Json<OrderInfo>, state: Data<&PgPool>) -> Result<Json<PayMent>> {
-    let res =
-        sqlx::query("update \"order\" set order_status = 2 where order_sn = $1 returning id;")
-            .bind(&order.order_sn)
-            .fetch_one(state.0)
-            .await
-            .map_err(BadRequest)?;
+    let res = sqlx::query(
+        "update \"order\" set order_status = 2 where order_sn = $1 and user_name= $2 returning id;",
+    )
+    .bind(&order.order_sn)
+    .bind(&order.user_name)
+    .fetch_one(state.0)
+    .await
+    .map_err(BadRequest)?;
     Ok(Json(PayMent {
         order_id: res.get("id"),
         order_sn: order.order_sn.clone(),
