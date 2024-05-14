@@ -73,6 +73,7 @@ struct Address {
 
 #[derive(Serialize, Deserialize, FromRow)]
 struct PaymentCard {
+    id: i32,
     username: String,
     card_type: i32,
     card_name: String,
@@ -208,7 +209,7 @@ pub async fn get_payment_method(
     state: Data<&PgPool>,
 ) -> Result<Json<Vec<PaymentCard>>> {
     let rows =
-        sqlx::query_as::<_, PaymentCard>("select user_name as username,card_name,card_number as card_num,exp_mon,exp_year,cvv,card_type from user_payment_type where user_name = $1 and status=true;")
+        sqlx::query_as::<_, PaymentCard>("select id, user_name as username,card_name,card_number as card_num,exp_mon,exp_year,cvv,card_type from user_payment_type where user_name = $1 and status=true;")
             .bind(&user.username)
             .fetch_all(state.0)
             .await
