@@ -7,9 +7,9 @@ use poem::{
 };
 use serde::{Deserialize, Serialize};
 use sqlx::Row;
-use sqlx::{prelude::FromRow, PgPool};
+use sqlx::{FromRow, PgPool};
 
-#[derive(Serialize, Deserialize, FromRow)]
+#[derive(Serialize, Deserialize)]
 pub struct Order {
     order_sn: String,
     user_name: String,
@@ -26,6 +26,21 @@ pub struct Order {
     receiver_address: String,
     receiver_phone: String,
     items: Vec<OrderItem>,
+}
+
+#[derive(Serialize, Deserialize, FromRow)]
+pub struct OrderResp {
+    order_sn: String,
+    total_amount: i64,
+    freight_amount: i64,
+    source_type: String,
+    pay_type: i32,
+    delivery_sn: String,
+    receiver_name: String,
+    receiver_city: String,
+    receiver_state: String,
+    receiver_address: String,
+    receiver_phone: String,
 }
 
 #[derive(Serialize, Deserialize, FromRow, Clone)]
@@ -88,9 +103,9 @@ pub async fn create_order(order: Json<Order>, state: Data<&PgPool>) -> Result<Js
     let mut transaction = state.0.begin().await.unwrap();
     let insert_order = sqlx::query(
         "insert into \"order\" (order_sn,user_name,total_amount,pay_amount,
-        freight_amount,pay_type,source_type,receiver_name,receiver_zip_code,receiver_city,
+        freight_amount,pay_type,source_type,delivery_sn,receiver_name,receiver_zip_code,receiver_city,
         receiver_state,receiver_address,receiver_phone,create_time,order_status,status)
-        values (gen_random_uuid(), $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,now(),1,'t') returning id,order_sn ",
+        values (gen_random_uuid(), $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,now(),1,'t') returning id,order_sn ",
     )
     .bind(&order.user_name)
     .bind(order.total_amount)
@@ -98,6 +113,7 @@ pub async fn create_order(order: Json<Order>, state: Data<&PgPool>) -> Result<Js
     .bind(order.freight_amount)
     .bind(order.pay_type)
     .bind(&order.source_type)
+    .bind(&order.delivery_sn)
     .bind(&order.receiver_name)
     .bind(&order.receiver_zip_code)
     .bind(&order.receiver_city)
@@ -150,8 +166,47 @@ pub async fn create_order(order: Json<Order>, state: Data<&PgPool>) -> Result<Js
 }
 
 #[handler]
-pub async fn list_order(state: Data<&PgPool>) -> Result<Json<Order>> {
-    unimplemented!()
+pub async fn get_order_detail(order: Json<OrderInfo>, state: Data<&PgPool>) -> Result<Json<Order>> {
+    let mut order_itmes: Vec<OrderItem> = Vec::new();
+
+    let mut items = sqlx::query_as::<_,OrderItem> ("select order_id,order_sn,product_id,product_pic,product_name,product_sn,product_price,product_quantity,product_sku_id,product_category_id,product_attr from \"order_item\" where order_sn=$1;")
+        .bind(&order.order_sn)
+        .fetch_all(state.0)
+        .await
+        .map_err(|e| Error::from_string(e.to_string(), StatusCode::BAD_REQUEST))?;
+    print!("end query order_item ,start quey order");
+    let rows =
+        sqlx::query("select order_sn,user_name,total_amount,pay_amount,
+        freight_amount,pay_type,source_type,delivery_sn,receiver_name,receiver_zip_code,receiver_city,
+        receiver_state,receiver_address,receiver_phone from \"order\" where order_sn=$1 and user_name = $2 and status=true;")
+            .bind(&order.order_sn)
+            .bind(&order.user_name)
+            .fetch_one(state.0)
+            .await
+        .map(|row| {
+            for item in items {
+                order_itmes.push(item);
+            }
+            Order{ order_sn: row.get(0),
+                user_name: row.get(1),
+                total_amount: row.get(2),
+                pay_amount: row.get(3),
+                freight_amount: row.get(4),
+                pay_type: row.get(5),
+                source_type: row.get(6),
+                delivery_sn: row.get(7),
+                receiver_name: row.get(8),
+                receiver_zip_code: row.get(9),
+                receiver_city: row.get(10),
+                receiver_state: row.get(11),
+                receiver_address: row.get(12),
+                receiver_phone:row.get(13),
+             items: order_itmes }
+
+        })
+            .map_err(|e| Error::from_string(e.to_string(), StatusCode::BAD_REQUEST))?;
+
+    Ok(Json(rows))
 }
 
 #[handler]
