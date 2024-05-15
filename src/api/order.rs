@@ -25,6 +25,7 @@ pub struct Order {
     receiver_state: String,
     receiver_address: String,
     receiver_phone: String,
+    order_status: i32,
     items: Vec<OrderItem>,
 }
 
@@ -178,7 +179,7 @@ pub async fn get_order_detail(order: Json<OrderInfo>, state: Data<&PgPool>) -> R
     let rows =
         sqlx::query("select order_sn,user_name,total_amount,pay_amount,
         freight_amount,pay_type,source_type,delivery_sn,receiver_name,receiver_zip_code,receiver_city,
-        receiver_state,receiver_address,receiver_phone from \"order\" where order_sn=$1 and user_name = $2 and status=true;")
+        receiver_state,receiver_address,receiver_phone,order_status from \"order\" where order_sn=$1 and user_name = $2 and status=true;")
             .bind(&order.order_sn)
             .bind(&order.user_name)
             .fetch_one(state.0)
@@ -201,6 +202,7 @@ pub async fn get_order_detail(order: Json<OrderInfo>, state: Data<&PgPool>) -> R
                 receiver_state: row.get(11),
                 receiver_address: row.get(12),
                 receiver_phone:row.get(13),
+                order_status: row.get(14),
              items: order_itmes }
 
         })
