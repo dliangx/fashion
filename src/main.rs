@@ -66,6 +66,10 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
             post(api::product::get_product_by_page),
         )
         .at(
+            "get_product_by_search",
+            post(api::product::get_product_by_search),
+        )
+        .at(
             "/get_product_detail/:id",
             get(api::product::get_product_detail),
         )
