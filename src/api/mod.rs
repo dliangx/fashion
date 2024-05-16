@@ -13,6 +13,6 @@ pub struct Page {
 
 #[derive(Debug, Deserialize)]
 pub struct SearchParam {
-    param: String,
+    search: String,
     page: Page,
 }
