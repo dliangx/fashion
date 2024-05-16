@@ -10,3 +10,9 @@ pub struct Page {
     start: i32,
     num: i32,
 }
+
+#[derive(Debug, Deserialize)]
+pub struct SearchParam {
+    param: String,
+    page: Page,
+}

@@ -6,6 +6,9 @@ use poem::{
 };
 use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
+use sqlx::Row;
+
+use crate::api::SearchParam;
 
 use super::Page;
 
@@ -81,6 +84,11 @@ pub struct Collections {
     id: i32,
     name: String,
     pic: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct ProductCount {
+    num: i64,
 }
 
 #[handler]
@@ -191,6 +199,25 @@ pub async fn get_product_by_page(
     .await
     .map_err(BadRequest)?;
     Ok(Json(rows))
+}
+
+#[handler]
+pub async fn get_product_by_search(
+    state: Data<&PgPool>,
+    req: Json<SearchParam>,
+) -> Result<Json<Vec<ProductInfo>>> {
+    Ok(Json(Vec::new()))
+}
+
+#[handler]
+pub async fn get_product_count(state: Data<&PgPool>) -> Result<Json<ProductCount>> {
+    let row = sqlx::query("select count(*) from product;")
+        .fetch_one(state.0)
+        .await
+        .map_err(BadRequest)?;
+
+    let count = row.get("count");
+    Ok(Json(ProductCount { num: count }))
 }
 
 #[handler]
