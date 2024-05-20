@@ -206,6 +206,15 @@ pub async fn get_product_by_search(
     state: Data<&PgPool>,
     req: Json<SearchParam>,
 ) -> Result<Json<Vec<ProductInfo>>> {
+    /* there are three way to impl search function,from easy to hard
+    1.use postgres search function
+    2.use independence full text search engine,like milisearch,electic search
+    3.use rust search library
+    solution 1 is not very agility
+    solution 2 need another independ services
+    solution 3 The search library for rust is not very completed
+     */
+
     Ok(Json(Vec::new()))
 }
 
