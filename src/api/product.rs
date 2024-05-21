@@ -213,6 +213,9 @@ pub async fn get_product_by_search(
     solution 1 is not very agility
     solution 2 need another independ services
     solution 3 The search library for rust is not very completed
+    so solution 3 is the best choice for my condition.search in github.
+    found https://github.com/quickwit-oss/tantivy is the best option.
+    so immigrate it
      */
 
     Ok(Json(Vec::new()))
