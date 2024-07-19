@@ -1,11 +1,11 @@
 use poem::{
     get, handler,
     http::Method,
+    listener::TcpListener,
     middleware::{AddData, Cors},
-    post, EndpointExt, Route,
+    post, EndpointExt, Route, Server,
 };
-use shuttle_poem::ShuttlePoem;
-use shuttle_runtime::CustomError;
+
 use sqlx::{Executor, PgPool};
 mod api;
 mod auth;
@@ -14,11 +14,17 @@ mod auth;
 async fn hello() -> String {
     "fashion backend".to_string()
 }
-#[shuttle_runtime::main]
-async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl poem::Endpoint> {
+
+// #[shuttle_runtime::main]
+#[tokio::main]
+async fn main() -> Result<(), std::io::Error> {
+    let pool = PgPool::connect("postgres://liang:password@localhost:5432/fashion")
+        .await
+        .unwrap();
     pool.execute(include_str!("../sql/schema.sql"))
         .await
-        .map_err(CustomError::new)?;
+        .unwrap();
+
     let cors = Cors::default()
         .allow_origin("http://localhost:1420")
         .allow_origin("https://openfashion-web.netlify.app")
@@ -78,5 +84,7 @@ async fn poem(#[shuttle_shared_db::Postgres] pool: PgPool) -> ShuttlePoem<impl p
         .nest("/api", api)
         .with(cors)
         .with(AddData::new(pool));
-    Ok(app.into())
+    Server::new(TcpListener::bind("0.0.0.0:3000"))
+        .run(app)
+        .await
 }
