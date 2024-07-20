@@ -84,7 +84,7 @@ async fn main() -> Result<(), std::io::Error> {
         .nest("/api", api)
         .with(cors)
         .with(AddData::new(pool));
-    Server::new(TcpListener::bind("0.0.0.0:3000"))
+    Server::new(TcpListener::bind("0.0.0.0:8000"))
         .run(app)
         .await
 }
