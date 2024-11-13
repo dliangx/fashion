@@ -18,7 +18,7 @@ async fn hello() -> String {
 // #[shuttle_runtime::main]
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
-    let pool = PgPool::connect("postgres://liang:password@localhost:5432/fashion")
+    let pool = PgPool::connect("postgres://liang:postgres@localhost:5432/fashion")
         .await
         .unwrap();
     pool.execute(include_str!("../sql/schema.sql"))
