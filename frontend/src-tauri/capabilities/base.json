@@ -1,0 +1,10 @@
+{
+  "permissions": [
+    {
+      "identifier": "http:default",
+      "allow": [{ "url": "https://*.shuttle.rs,http://localhost:8000" }],
+      "deny": [{ "url": "https://private.tauri.app" }]
+    }
+  ],
+  "identifier": "http:default"
+}
