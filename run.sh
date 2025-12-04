@@ -29,6 +29,11 @@ elif [ "$1" = "run" ]; then
     echo "前端和后端已启动。"
     echo "后端PID: $BACKEND_PID, 前端PID: $FRONTEND_PID"
     wait $BACKEND_PID $FRONTEND_PID
+elif [ "$1" = "clean" ]; then
+    rm -rf backend/target
+    rm -rf frontend/node_modules
+    rm -rf frontend/dist
+    echo "clean 项目依赖和构建文件  "
 else
     echo "用法: $0 build|run"
     exit 1
