@@ -11,8 +11,7 @@ hosting in shuttle sass platform,Shuttle is a Rust-native cloud development plat
 
 using poem middleware impl jwt authorization. it's a full-featured and easy-to-use web framework with the Rust programming language.Debugging time is drastically reduced after the code is written. I rarely used debugging in the whole process of this project.
 
-## Develop ,Build and Publish
+## Develop ,Build
 
-develop: ./run.sh run
 build:  ./run.sh build
-clean:  ./run.sh clean
+develop: ./run.sh run
