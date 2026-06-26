@@ -13,4 +13,6 @@ using poem middleware impl jwt authorization. it's a full-featured and easy-to-u
 
 ## Develop ,Build and Publish
 
-develop: cargo shuttle run
+develop: ./run.sh run
+build:  ./run.sh build
+clean:  ./run.sh clean
